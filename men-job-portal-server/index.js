@@ -1,0 +1,125 @@
+const express = require('express');
+const app = express();
+const cors = require('cors');
+const port = process.env.PORT || 3001;
+require('dotenv').config();
+
+// Middleware
+app.use(express.json());
+app.use(cors());
+
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@men-job-portal.ddye6po.mongodb.net/?retryWrites=true&w=majority`;
+
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
+});
+
+async function run() {
+  try {
+    await client.connect();
+    const db = client.db("MenJobPortal");
+    const jobsCollections = db.collection("demoJobs");
+
+    app.post("/post-job", async (req, res) => {
+      let body = req.body;
+      body._id = new ObjectId(body._id);
+      console.log(req.body);
+      body.createdAt = new Date(); // Corrected property name
+      console.log(body);
+      try {
+        const job = await jobsCollections.findOne({ _id: body._id });
+
+     if (job == null) {
+    // If job with given _id does not exist, insert a new document
+    result = await jobsCollections.insertOne(body);
+} else {
+    // If job with given _id exists, update the existing document
+    result = await jobsCollections.findOneAndUpdate(
+        { _id: new ObjectId(body._id) },
+        { $set: body },
+        { returnOriginal: false } // return the updated document
+    );
+}
+        if (result.insertedId) {
+          return res.status(200).send(result);
+        } else {
+          return res.status(404).send({
+            message: "Cannot Insert Try Again Later!",
+            status: false
+          });
+        }
+      } catch (error) {
+        console.error(error);
+        return res.status(500).send({
+          message: "Internal Server Error",
+          status: false
+        });
+      }
+    });
+
+    app.get("/all-jobs", async (req, res) => {
+      try {
+        const jobs = await jobsCollections.find({}).toArray();
+        res.send(jobs);
+      } catch (error) {
+        console.error(error);
+        return res.status(500).send({
+          message: "Internal Server Error",
+          status: false
+        });
+      }
+    });
+
+   //get single job using id
+
+app.get("/all-jobs/:id", async (req, res) => {
+  const id = req.params.id;
+  console.log(req.params);
+  const job = await jobsCollections.findOne({ 
+    _id: new ObjectId(id)
+  });
+   console.log(job);
+  res.send(job)
+});
+
+
+    app.get("/myJobs/:email", async (req, res) => {
+      const Jobs = await jobsCollections.find({ postedBy: req.params.email }).toArray();
+      res.send(Jobs);
+    });
+
+    // Corrected the route path and added missing brackets
+    app.delete("/job/:id", async (req, res) => {
+      const id = req.params.id;
+      console.log(req.params);
+      const filter = { _id: new ObjectId(id) };
+      const result = await jobsCollections.deleteOne(filter); // Corrected method name
+      res.send(result);
+    });
+    
+    await client.db('admin').command({ ping: 1 });
+    console.log('Pinged your deployment. You successfully connected to MongoDB!');
+  } catch (error) {
+    console.error('Error connecting to MongoDB:', error);
+  }
+}
+
+run().catch(console.dir);
+
+app.get('/', (req, res) => {
+  res.send('Osama!');
+});
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
