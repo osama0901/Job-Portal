@@ -35,8 +35,14 @@ const Home = () => {
     setQuery(event.target.value);
   };
 
-  //filter  jobs by title 
-  const filteredItems = jobs.filter((job) => job.jobTitle.toLowerCase().indexOf(query.toLocaleLowerCase()) !== -1)
+  //filter  jobs by title Create by Usama
+  // const filteredItems = jobs.filter((job) => job?.jobTitle.toLowerCase().indexOf(query.toLocaleLowerCase()) !== -1)
+
+  const filteredItems = jobs.filter((job) => {
+    const jobTitleMatch = job?.jobTitle.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+    const companyNameMatch = job?.companyName.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+    return jobTitleMatch || companyNameMatch;
+  });
 
   //================Radio Base Button filtering-------------
 
@@ -91,19 +97,19 @@ const Home = () => {
       filteredJobs = filteredItems;
     }
 
-   // Category filtering
-   if (selected) {
-    console.log(selected);
-    filteredJobs = filteredJobs.filter(({ jobLocation, maxPrice, experiencedLevel, salaryType, employementType, postingDate }) => 
-      (jobLocation && jobLocation.toLowerCase() === selected.toLowerCase()) ||
-      (maxPrice && parseInt(maxPrice) <= parseInt(selected)) ||
-      (postingDate && postingDate >= selected) ||
-      (salaryType && salaryType.toLowerCase() === selected.toLowerCase()) ||
-      (experiencedLevel && experiencedLevel.toLowerCase() === selected.toLowerCase()) ||
-      (employementType && employementType.toLowerCase() === selected.toLowerCase())
-    );
-    console.log(filteredJobs);
-  }
+    // Category filtering
+    if (selected) {
+      console.log(selected);
+      filteredJobs = filteredJobs.filter(({ jobLocation, maxPrice, experiencedLevel, salaryType, employementType, postingDate }) =>
+        (jobLocation && jobLocation.toLowerCase() === selected.toLowerCase()) ||
+        (maxPrice && parseInt(maxPrice) <= parseInt(selected)) ||
+        (postingDate && postingDate >= selected) ||
+        (salaryType && salaryType.toLowerCase() === selected.toLowerCase()) ||
+        (experiencedLevel && experiencedLevel.toLowerCase() === selected.toLowerCase()) ||
+        (employementType && employementType.toLowerCase() === selected.toLowerCase())
+      );
+      console.log(filteredJobs);
+    }
 
 
     //slice the data based on current page
@@ -156,7 +162,7 @@ const Home = () => {
         </div>
 
         {/* Right Side  */}
-        <div className="bg-white p=4 rounded"><Newsletter/></div>
+        <div className="bg-white p=4 rounded"><Newsletter /></div>
 
 
       </div>

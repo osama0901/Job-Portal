@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { TERipple } from "tw-elements-react";
-import About from '../Pages/About';
 
 export default function App() {
   return (
