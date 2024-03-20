@@ -8,7 +8,7 @@ import Newsletter from "../components/Newsletter";
 const Home = () => {
 
 
-
+  const [selectedLocation, setSelectedLocation] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [jobs, setJobs] = useState([]);
   const [isLoading, setIsloading] = useState(true);
@@ -17,8 +17,9 @@ const Home = () => {
   useEffect(() => {
 
     setIsloading(true);
-    fetch("http://localhost:3001/all-jobs").then(res => res.json()).then(data => {
-
+    fetch("http://localhost:3001/all-jobs")
+    .then(res => res.json())
+    .then(data => {
       //console.log(data)
       setJobs(data);
       setIsloading(false)
@@ -34,6 +35,9 @@ const Home = () => {
   const handleInputChange = (event) => {
     setQuery(event.target.value);
   };
+  const handleLocationChange = (location) => {
+    setSelectedLocation(location);
+  };
 
   //filter  jobs by title Create by Usama
   // const filteredItems = jobs.filter((job) => job?.jobTitle.toLowerCase().indexOf(query.toLocaleLowerCase()) !== -1)
@@ -41,7 +45,8 @@ const Home = () => {
   const filteredItems = jobs.filter((job) => {
     const jobTitleMatch = job?.jobTitle.toLowerCase().indexOf(query.toLowerCase()) !== -1;
     const companyNameMatch = job?.companyName.toLowerCase().indexOf(query.toLowerCase()) !== -1;
-    return jobTitleMatch || companyNameMatch;
+    const locationMatch = !selectedLocation || job?.jobLocation.toLowerCase() === selectedLocation.toLowerCase();
+    return (jobTitleMatch || companyNameMatch) && locationMatch;
   });
 
   //================Radio Base Button filtering-------------
@@ -89,7 +94,7 @@ const Home = () => {
 
   // main funtion 
 
-  const filteredData = (jobs, selected, query) => {
+  const filteredData = (jobs, selected, query, selectedLocation) => {
     let filteredJobs = jobs;
 
     // Filtering input
@@ -110,6 +115,11 @@ const Home = () => {
       );
       console.log(filteredJobs);
     }
+    if (selectedLocation) {
+      filteredJobs = filteredJobs.filter(job =>
+        job.jobLocation.toLowerCase() === selectedLocation.toLowerCase()
+      );
+    }
 
 
     //slice the data based on current page
@@ -119,12 +129,14 @@ const Home = () => {
     return filteredJobs.map((data, i) => <Card key={i} data={data} />);
   }
 
-  const result = filteredData(jobs, selectedCategory, query);
+  const result = filteredData(jobs, selectedCategory, query, selectedLocation);
 
   return (
     <div>
       {/* Pass query and handleInputChange as props to the Banner component */}
-      <Banner query={query} handleInputChange={handleInputChange} />
+      <Banner query={query}
+        handleInputChange={handleInputChange}
+        handleLocationChange={handleLocationChange} />
 
       {/* Main Content  */}
       <div className="bg-[#FAFAFA] md:grid grid-cols-4 gap-8 lg:px-24 px-4 py-12">

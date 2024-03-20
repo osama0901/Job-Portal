@@ -1,9 +1,14 @@
 import React from "react";
 import { FiMapPin, FiSearch } from "react-icons/fi";
 
-const Banner = ({ query, handleInputChange }) => {
+
+const Banner = ({ query, handleInputChange, handleLocationChange, selectedLocation }) => {
   return (
-    <div className='bg-sky-500 mx-auto xl:px-24 px-10 md:py-20 py-14 '>
+    <div className='bg-sky-500 mx-auto xl:px-24 px-10 md:py-20 py-14'
+      style={{
+        clipPath: 'polygon(0 1%, 100% 0%, 100% 85%, 0% 100%)'
+      }}
+    >
       <h1 className='text-6xl font-sans  text-white mb-10'>
         Find Your<span className="text-white"> New Job Today.</span>
       </h1>
@@ -24,18 +29,20 @@ const Banner = ({ query, handleInputChange }) => {
             <FiSearch className='absolute mt-4 ml-2 text-gray-400' />
           </div>
           <div className='bg-white flex md:rounded-s-none rounded shawdow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 md:w-1/3 w-full hover:pointer'>
-            <input
-              type="text"
-              name="title"
-              placeholder='Location'
-              id="title"
-              className='block flex-1 border-0 bg-transparent py-1.5 pl-8 text-grey-900 placeholder:text-gray-400 focus=right-0 sm:text-sm sm:leading-6'
-
-
-            />
+            <select
+              name="city"
+              id="city"
+              className='block flex-1 border-0 bg-transparent py-1.5 pl-8 pr-4 text-grey-900 placeholder:text-gray-400 focus=right-0 sm:text-sm sm:leading-6'
+              onChange={(event) => handleLocationChange(event.target.value)}
+              value={selectedLocation}
+            >
+              <option value="">Select a city</option>
+              <option value="London">London</option>
+              <option value="Manchester">Manchester</option>
+              <option value="Birmingham">Birmingham</option>
+            </select>
             <FiMapPin className='absolute mt-4 ml-2 text-gray-400' />
           </div>
-
           <button type='submit' className='bg-yellow-400 py-2 px-8 text-white md:rounded-s-none rounded hover:bg-white hover:text-black '>Search</button>
         </div>
       </form>
