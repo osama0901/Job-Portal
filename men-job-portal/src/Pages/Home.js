@@ -91,7 +91,6 @@ const Home = () => {
     }
   }
 
-
   // main funtion 
 
   const filteredData = (jobs, selected, query, selectedLocation) => {
@@ -149,7 +148,7 @@ const Home = () => {
         <div className="col-span-2 bg-white p-4 rounded-sm">
           {
             isLoading ? (<p className="font-medium">Loding.....</p>) : result.length > 0 ? (<Jobs result={result} />) : <>
-              <h3 className="text-lg font-bold mb-2">{result.length} Jobs</h3>
+              <h3 className="text-lg font-bold mb-2">{result?.length} Jobs</h3>
               <p>No Data Found!</p>
             </>
           }

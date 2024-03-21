@@ -88,9 +88,9 @@ export const MyJobs = () => {
                     <button className='bg-sky-500 text-white font-semibold px-8 py-2 rounded-sm mb-4' onClick={handleSearch}>Search</button>
                     <ul>
                         {jobs.map((job) => (
-                            <li key={job._id}>
-                                <div>{job.title}</div>
-                                <div>{job.company}</div>
+                            <li key={job?._id}>
+                                <div>{job?.title}</div>
+                                <div>{job?.company}</div>
                             </li>
                         ))}
                     </ul>
@@ -98,7 +98,7 @@ export const MyJobs = () => {
             </div>
 
             <section className="py-1 bg-blueGray-50">
-                <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4 mx-auto mt-24 mt-5">
+                <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4 mx-auto mt-24">
                     <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
                         <div className="rounded-t mb-0 px-4 py-3 border-0">
                             <div className="flex flex-wrap items-center">

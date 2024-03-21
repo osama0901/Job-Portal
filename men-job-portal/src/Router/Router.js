@@ -1,4 +1,4 @@
-import {createBrowserRouter} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import Home from "../Pages/Home";
 import About from "../Pages/About";
@@ -11,70 +11,75 @@ import TermsConditions from "../Pages/TermsConditions";
 import Privacy from "../Pages/Privacy";
 import Faq from "../Pages/Faq";
 import Browsejobs from "../Pages/Browsejobs";
+import JobDetails from "../Pages/Jobdetails";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App></App>,
-    
+
     children: [
 
-      {path: "/", element: <Home/>},
+      { path: "/", element: <Home /> },
       {
         path: "post-job",
-        element: <CreateJob/>
+        element: <CreateJob />
       },
       {
         path: "my-job",
-        element: <MyJobs/>
+        element: <MyJobs />
       },
 
       {
         path: "edit-job/:id",
-        element: <Updatejob/>,
-        loader: ({params}) => fetch(`http://localhost:3001/all-jobs/${params.id}`)
+        element: <Updatejob />,
+        loader: ({ params }) => fetch(`http://localhost:3001/all-jobs/${params.id}`)
       },
 
-    
+
 
       {
         path: "contact",
-        element: <Contact/>
+        element: <Contact />
       },
 
       {
         path: "cvbuilder",
-        element: <CvBuilder/>
+        element: <CvBuilder />
       },
 
       {
         path: "termsconditions",
-        element: <TermsConditions/>
+        element: <TermsConditions />
       },
 
       {
         path: "privacy",
-        element: <Privacy/>
+        element: <Privacy />
       },
 
       {
         path: "faq",
-        element: <Faq/>
+        element: <Faq />
       },
 
       {
         path: "browsejobs",
-        element: <Browsejobs/>
+        element: <Browsejobs />
       },
+      {
+        path: "jobdetails/:id",
+        element: <JobDetails />,
+        loader: ({ params }) => fetch(`http://localhost:3001/jobdetails/${params.id}`)
+      }
 
 
 
 
-      
-     
-      
+
+
     ]
-    
+
   },
 ]);
 
