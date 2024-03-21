@@ -4,12 +4,10 @@ import { useParams } from 'react-router-dom';
 
 const JobDetails = () => {
     const { id } = useParams();
-    console.log(id);
-
     const [job, setJob] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Fetch job details based on the ID from the URL params
         const fetchJobDetails = async () => {
             try {
                 const response = await fetch(`http://localhost:3001/jobdetails/${id}`);
@@ -21,18 +19,27 @@ const JobDetails = () => {
                 }
             } catch (error) {
                 console.error('Error fetching job details:', error);
+            } finally {
+                setLoading(false);
             }
         };
 
         fetchJobDetails();
     }, [id]);
 
-    if (!job) {
-        // If job data is not yet loaded, return a loading indicator or placeholder
-        return <div>Loading...</div>;
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center">
+                <img src="/images/loader.gif" alt="Loading..." style={{ height: "100px" }} />
+            </div>
+        );
     }
 
-    const relativeTime = moment(job.jobPosting).fromNow();
+    if (!job) {
+        return <div>Job not found.</div>;
+    }
+
+    const relativeTime = moment(job?.jobPosting).fromNow();
     return (
         <div className="container mx-auto py-8 flex flex-col md:flex-row justify-between items-start">
             <div className="w-full md:w-3/4 mb-8 md:mb-0 md:pr-8">
@@ -48,7 +55,7 @@ const JobDetails = () => {
                 <div className="text-center mt-5">
                     <h2 className="text-xl md:text-2xl font-bold mb-4">Company Information</h2>
                 </div>
-                <img src={job.companyLogo} alt={job?.companyName} />
+                <img src={job?.companyLogo} alt={job?.companyName} />
                 <h3 className="text-lg md:text-xl font-semibold mb-2">{job?.companyName}</h3>
                 <div className="flex flex-wrap items-center mb-2">
                     <p className="text-gray-700 mr-4 mb-2 md:mb-0 md:mr-0 md:pr-4"><b>Location:</b> {job?.jobLocation}</p>
