@@ -34,17 +34,17 @@ async function run() {
       try {
         const job = await jobsCollections.findOne({ _id: body._id });
 
-     if (job == null) {
-    // If job with given _id does not exist, insert a new document
-    result = await jobsCollections.insertOne(body);
-} else {
-    // If job with given _id exists, update the existing document
-    result = await jobsCollections.findOneAndUpdate(
-        { _id: new ObjectId(body._id) },
-        { $set: body },
-        { returnOriginal: false } // return the updated document
-    );
-}
+        if (job == null) {
+          // If job with given _id does not exist, insert a new document
+          result = await jobsCollections.insertOne(body);
+        } else {
+          // If job with given _id exists, update the existing document
+          result = await jobsCollections.findOneAndUpdate(
+            { _id: new ObjectId(body._id) },
+            { $set: body },
+            { returnOriginal: false } // return the updated document
+          );
+        }
         if (result.insertedId) {
           return res.status(200).send(result);
         } else {
@@ -75,25 +75,43 @@ async function run() {
       }
     });
 
-   //get single job using id
+    //get single job using id
 
-app.get("/all-jobs/:id", async (req, res) => {
-  const id = req.params.id;
-  console.log(req.params);
-  const job = await jobsCollections.findOne({ 
-    _id: new ObjectId(id)
-  });
-   console.log(job);
-  res.send(job)
-});
+    app.get("/all-jobs/:id", async (req, res) => {
+      const id = req.params.id;
+      console.log(req.params);
+      const job = await jobsCollections.findOne({
+        _id: new ObjectId(id)
+      });
+      console.log(job);
+      res.send(job)
+    });
 
+    app.get("/jobdetails/:id", async (req, res) => {
+      const jobId = req.params.id;
+
+      // Check if the job ID is a valid ObjectId
+      if (!ObjectId.isValid(jobId)) {
+        return res.status(400).send({ message: 'Invalid job ID' });
+      }
+
+      try {
+        const job = await jobsCollections.findOne({ _id: new ObjectId(jobId) });
+        if (!job) {
+          return res.status(404).send({ message: 'Job not found' });
+        }
+        res.json(job);
+      } catch (error) {
+        console.error(error);
+        res.status(500).send({ message: 'Internal Server Error' });
+      }
+    });
 
     app.get("/myJobs/:email", async (req, res) => {
       const Jobs = await jobsCollections.find({ postedBy: req.params.email }).toArray();
       res.send(Jobs);
     });
 
-    // Corrected the route path and added missing brackets
     app.delete("/job/:id", async (req, res) => {
       const id = req.params.id;
       console.log(req.params);
@@ -101,7 +119,7 @@ app.get("/all-jobs/:id", async (req, res) => {
       const result = await jobsCollections.deleteOne(filter); // Corrected method name
       res.send(result);
     });
-    
+
     await client.db('admin').command({ ping: 1 });
     console.log('Pinged your deployment. You successfully connected to MongoDB!');
   } catch (error) {
