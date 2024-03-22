@@ -55,7 +55,7 @@ const Home = () => {
   // ===================Buttons Side  filtering---------------
 
   const handleClick = (event) => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     setSelectedCategory(event.target.value)
   }
 
@@ -100,7 +100,7 @@ const Home = () => {
 
     // Category filtering
     if (selected) {
-      console.log(selected);
+      // console.log(selected);
       filteredJobs = filteredJobs.filter(({ jobLocation, maxPrice, experiencedLevel, salaryType, employementType, postingDate }) =>
         (jobLocation && jobLocation.toLowerCase() === selected.toLowerCase()) ||
         (maxPrice && parseInt(maxPrice) <= parseInt(selected)) ||
@@ -142,15 +142,17 @@ const Home = () => {
         {/* Job Cards   */}
         <div className="bg-white p-4 rounded-sm md:col-span-2"> {/* Adjusted width for medium screens */}
           {isLoading ? (
-            <p className="font-medium">Loading.....</p>
-          ) : result.length > 0 ? (
-            <Jobs result={result} />
-          ) : (
-            <>
-              <h3 className="text-lg font-bold mb-2">{result?.length} Jobs</h3>
-              <p>No Data Found!</p>
-            </>
-          )}
+            <div className="flex justify-center items-center">
+              <img src="/images/loader.gif" alt="Loading..." style={{ height: "100px" }} />
+            </div>)
+            : result.length > 0 ? (
+              <Jobs result={result} />
+            ) : (
+              <>
+                <h3 className="text-lg font-bold mb-2">{result?.length} Jobs</h3>
+                <p>No Data Found!</p>
+              </>
+            )}
           {/*pagination here */}
           {result.length > 0 && (
             <div className="flex justify-center mt-4 space-x-8">
