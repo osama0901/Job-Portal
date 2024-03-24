@@ -4,7 +4,7 @@ import { FiMapPin, FiSearch } from "react-icons/fi";
 
 const Banner = ({ query, handleInputChange, handleLocationChange, selectedLocation }) => {
   return (
-    <div className='bg-sky-500 xl:px-24 px-10 py-14 h-[80vh] flex justify-center items-center'
+    <div className='bg-sky-500 xl:px-20 px-10 py-10 h-[80vh] flex justify-center items-center'
     style={{
       clipPath: 'polygon(0 1%, 100% 0%, 100% 85%, 0% 100%)',
       '@screen sm': {
@@ -13,11 +13,11 @@ const Banner = ({ query, handleInputChange, handleLocationChange, selectedLocati
     }}
   >
     <div className="w-full md:w-[80%] flex flex-col items-center justify-center">
-      <h1 className='text-6xl font-sans text-white mb-10'>
+      <h1 className='text-6xl font-sans text-white mb-4'>
         Find Your<span className="text-white"> New Job Today.</span>
       </h1>
       <p className='text-lg text-white '>We Can Help You Succeed</p>
-      <p className='text-lg text-white mb-8'>Browse Thousands Of Jobs From Top Companies</p>
+      <p className='text-lg text-white mb-6'>Browse Thousands Of Jobs From Top Companies</p>
       <form className="w-full">
         <div className='flex justify-start md:flex-row flex-col gap-8 w-full'>
           <div className='bg-white flex md:rounded-s-md rounded shawdow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 md:w-1/2 w-full'>
@@ -44,6 +44,22 @@ const Banner = ({ query, handleInputChange, handleLocationChange, selectedLocati
               <option value="London">London</option>
               <option value="Manchester">Manchester</option>
               <option value="Birmingham">Birmingham</option>
+              <option value="Edinburgh">Edinburgh</option>
+              <option value="Dublin">Dublin</option>
+              <option value="LiverPool">LiverPool</option>
+              <option value="Glasgow">Glasgow</option>
+              <option value="Bradford">Bradford</option>
+              <option value="Sheffeild">Sheffeild</option>
+              <option value="Cambridge">Cambridge</option>
+              <option value="Bristol">Bristol</option>
+              <option value="Belfast">Belfast</option>
+              <option value="Oxford">Oxford</option>
+              <option value="Norwich">Norwich</option>
+              <option value="Nottingham">Nottingham</option>
+              <option value="Chester">Chester</option>
+              <option value="Aberdeen">Aberdeen</option>
+              <option value="Leeds">Leeds</option>
+              <option value="NewCastle">NewCastle</option>
             </select>
             <FiMapPin className='absolute mt-4 ml-2 text-gray-400' />
           </div>

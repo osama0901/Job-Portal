@@ -15,14 +15,12 @@ const Navbar = () => {
     { path: "/post-job", title: "Post a Job" },
     { path: "/browsejobs", title: "Browse Jobs" },
     { path: "/cvbuilder", title: "Build Your CV" },
-   
-  
   ];
 
   return (
-    <header className="max-w-screen-2xl container mx-auto xl:px-24 px-4">
-      <nav className="flex justify-between item-center py-6">
-        <a href="/" className="flex items-center gap-2 text-2xl text-black">
+    <header className="w-full mx-auto xl:px-24 px-6 sticky top-0 bg-white shadow-md z-50">
+      <nav className="flex justify-between items-center py-4">
+        <a href="/" className="flex items-center gap-2 text-2xl text-black font-semibold">
           <svg xmlns="http://www.w3.org/2000/svg" width="29" height="30" viewBox="0 0 29 30" fill="none">
             <circle cx="12.0143" cy="12.5143" r="12.0143" fill="#3575E2" fillOpacity="0.4" />
             <circle cx="16.9857" cy="17.4857" r="12.0143" fill="#3575E2" />
@@ -30,47 +28,47 @@ const Navbar = () => {
           <span>WE HIRE</span>
         </a>
 
-        {/* Nav items for large devices */}
-        <ul className="hidden md:flex gap-12">
+        <ul className="hidden md:flex gap-8 text-primary">
           {navItems.map(({ path, title }) => (
-            <li key={path} className="text-base text-primary">
-              <NavLink to={path} className={({ isActive }) => (isActive ? "active" : "")}>
+            <li key={path}>
+              <NavLink to={path} activeClassName="text-sky-500">
                 {title}
               </NavLink>
             </li>
           ))}
         </ul>
 
-        {/* Signup and Login Button*/}
-        <div className="text-base text-primary font-medium space-x-5 hidden lg:block">
-          <NavLink to="/login" className="py-2 px-5 border rounded">
-            Log In
-          </NavLink>
-          <NavLink to="/sign-up" className="py-2 px-8 border rounded bg-sky-500 text-white">
-            Sign Up
-          </NavLink>
-        </div>
+        <div className="flex items-center space-x-8">
+          <div className="hidden lg:block">
+            <NavLink to="/login" className="py-2 px-5 border rounded text-primary hover:bg-primary hover:text-white transition duration-300">
+              Log In
+            </NavLink>
+            <NavLink to="/sign-up" className="py-2 px-8 border rounded bg-sky-500 text-white hover:bg-opacity-80 transition duration-300">
+              Sign Up
+            </NavLink>
+          </div>
 
-        {/* Mobile menu */}
-        <div className="md:hidden block">
-          <button onClick={handleMenuToggler}>
-            {isMenuOpen ? <FaXmark className="w-5 h-5 text-primary" /> : <FaBarsStaggered className="w-5 h-5 text-primary" />}
-          </button>
+          <div className="md:hidden">
+            <button onClick={handleMenuToggler} className="focus:outline-none">
+              {isMenuOpen ? <FaXmark className="w-6 h-6 text-primary" /> : <FaBarsStaggered className="w-6 h-6 text-primary" />}
+            </button>
+          </div>
         </div>
       </nav>
 
-      {/* Nav items for mobile */}
       <div className={`px-4 bg-black py-5 rounded-sm ${isMenuOpen ? "" : "hidden"}`}>
         <ul>
           {navItems.map(({ path, title }) => (
-            <li key={path} className="text-base text-white first:texti-white py-1 ">
-              <NavLink to={path} className={({ isActive }) => (isActive ? "active" : "")}>
+            <li key={path} className="text-white py-2">
+              <NavLink to={path} activeClassName="text-sky-500" onClick={handleMenuToggler}>
                 {title}
               </NavLink>
             </li>
           ))}
 
-<li className="text-white py-1"><NavLink to="/login" >Log In</NavLink></li>
+          <li className="text-white py-2">
+            <NavLink to="/login" onClick={handleMenuToggler}>Log In</NavLink>
+          </li>
         </ul>
       </div>
     </header>
