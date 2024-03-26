@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const JobDetails = () => {
     const { id } = useParams();
@@ -35,10 +35,6 @@ const JobDetails = () => {
         );
     }
 
-    if (!job) {
-        return <div>Job not found.</div>;
-    }
-
     const relativeTime = moment(job?.jobPosting).fromNow();
     return (
         <div className="container mx-auto py-8 flex flex-col md:flex-row justify-between items-start">
@@ -55,11 +51,18 @@ const JobDetails = () => {
                 <div className="text-center mt-5">
                     <h2 className="text-xl md:text-2xl font-bold mb-4">Company Information</h2>
                 </div>
-                <img src={job?.companyLogo} alt={job?.companyName} />
-                <h3 className="text-lg md:text-xl font-semibold mb-2">{job?.companyName}</h3>
+                <img src={job?.companyLogo} alt={job?.companyName} className='w-50 h-50' />
+                <h3 className="text-lg md:text-xl font-semibold mb-2 mt-3 ">
+                    <Link to={`/company-jobs/${job?.companyId}`}>{job?.companyName}</Link>
+                </h3>
                 <div className="flex flex-wrap items-center mb-2">
-                    <p className="text-gray-700 mr-4 mb-2 md:mb-0 md:mr-0 md:pr-4"><b>Location:</b> {job?.jobLocation}</p>
-                    <p className="text-gray-700 mb-2 md:mb-0"><b>Employment Type:</b> {job?.employementType}</p>
+                    <p className="text-gray-700 mr-4 mb-2 md:mb-0 md:mr-0 md:pr-4">
+                        <b>Location:</b>
+                        <Link to={`/location-jobs/${job?.jobLocation}`}>  {job?.jobLocation}</Link>
+                    </p><br />
+                </div>
+                <div className="flex items-center mb-2">
+                    <p className="text-gray-700 mr-4"><b>Employment Type:</b> {job?.employementType}</p>
                 </div>
                 <div className="flex items-center mb-2">
                     <p className="text-gray-700 mr-4"><b>Experience Level:</b> {job?.experienceLevel}</p>

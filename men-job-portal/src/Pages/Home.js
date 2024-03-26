@@ -4,6 +4,7 @@ import Card from "../components/Card";
 import Jobs from "./Jobs";
 import Sidebar from "../sidebard/Sidebar";
 import Newsletter from "../components/Newsletter";
+import Arrow from "../components/Arrow";
 
 const Home = () => {
   const [selectedLocation, setSelectedLocation] = useState("");
@@ -12,6 +13,7 @@ const Home = () => {
   const [isLoading, setIsloading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
+
   useEffect(() => {
     setIsloading(true);
     fetch("http://localhost:3001/all-jobs")
@@ -171,7 +173,7 @@ const Home = () => {
           <Newsletter />
         </div>
       </div>
-
+      <Arrow />
 
     </div>
   );

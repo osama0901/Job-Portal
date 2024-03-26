@@ -12,6 +12,8 @@ import Privacy from "../Pages/Privacy";
 import Faq from "../Pages/Faq";
 import Browsejobs from "../Pages/Browsejobs";
 import JobDetails from "../Pages/Jobdetails";
+import Companyjobs from "../Pages/Companyjobs";
+import Jobloction from "../Pages/Jobloction";
 
 const router = createBrowserRouter([
   {
@@ -71,8 +73,17 @@ const router = createBrowserRouter([
         path: "jobdetails/:id",
         element: <JobDetails />,
         loader: ({ params }) => fetch(`http://localhost:3001/jobdetails/${params.id}`)
+      },
+      {
+        path: "company-jobs/:companyId",
+        element: <Companyjobs/>,
+        loader: ({ params }) => fetch(`http://localhost:3001/company-jobs/${params.companyId}`)
+      },
+      {
+        path: "location-jobs/:jobLocation",
+        element: <Jobloction/>,
+        loader: ({ params }) => fetch(`http://localhost:3001/location-jobs/${params.jobLocation}`)
       }
-
 
 
 
