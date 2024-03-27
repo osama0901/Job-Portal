@@ -9,11 +9,11 @@ import Contact from "../Pages/Contact";
 import CvBuilder from "../Pages/CvBuilder";
 import TermsConditions from "../Pages/TermsConditions";
 import Privacy from "../Pages/Privacy";
-import Faq from "../Pages/Faq";
 import Browsejobs from "../Pages/Browsejobs";
 import JobDetails from "../Pages/Jobdetails";
 import Companyjobs from "../Pages/Companyjobs";
 import Jobloction from "../Pages/Jobloction";
+import Companydetails from "../Pages/Companydetails";
 
 const router = createBrowserRouter([
   {
@@ -37,9 +37,10 @@ const router = createBrowserRouter([
         element: <Updatejob />,
         loader: ({ params }) => fetch(`http://localhost:3001/all-jobs/${params.id}`)
       },
-
-
-
+      {
+        path: "companyinfo",
+        element: <Companydetails />
+      },
       {
         path: "contact",
         element: <Contact />
@@ -59,12 +60,6 @@ const router = createBrowserRouter([
         path: "privacy",
         element: <Privacy />
       },
-
-      {
-        path: "faq",
-        element: <Faq />
-      },
-
       {
         path: "browsejobs",
         element: <Browsejobs />
@@ -76,12 +71,12 @@ const router = createBrowserRouter([
       },
       {
         path: "company-jobs/:companyId",
-        element: <Companyjobs/>,
+        element: <Companyjobs />,
         loader: ({ params }) => fetch(`http://localhost:3001/company-jobs/${params.companyId}`)
       },
       {
         path: "location-jobs/:jobLocation",
-        element: <Jobloction/>,
+        element: <Jobloction />,
         loader: ({ params }) => fetch(`http://localhost:3001/location-jobs/${params.jobLocation}`)
       }
 

@@ -15,8 +15,8 @@ const Navbar = () => {
     { path: "/post-job", title: "Post a Job" },
     { path: "/browsejobs", title: "Browse Jobs" },
     { path: "/cvbuilder", title: "Build Your CV" },
-   
-  
+
+
   ];
 
   return (
@@ -70,7 +70,7 @@ const Navbar = () => {
             </li>
           ))}
 
-<li className="text-white py-1"><NavLink to="/login" >Log In</NavLink></li>
+          <li className="text-white py-1"><NavLink to="/login" >Log In</NavLink></li>
         </ul>
       </div>
     </header>
