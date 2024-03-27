@@ -33,9 +33,17 @@ async function run() {
       console.log(body);
       try {
         const job = await jobsCollections.findOne({ _id: body._id });
+        const companyId = req.body.companyName
+          .toLowerCase() // Convert to lowercase
+          .replace(/\s+/g, '-') // Replace spaces with dashes
+          .replace(/[^\w-]+/g, '');
+
+        body.companyId = companyId;
 
         if (job == null) {
+          console.log(body)
           // If job with given _id does not exist, insert a new document
+
           result = await jobsCollections.insertOne(body);
         } else {
           // If job with given _id exists, update the existing document
@@ -75,6 +83,31 @@ async function run() {
       }
     });
 
+    // Add a new route to fetch jobs posted by a specific company
+    app.get("/company-jobs/:companyId", async (req, res) => {
+      const companyId = req.params.companyId;
+
+      try {
+        const jobs = await jobsCollections.find({ companyId }).toArray();
+        res.json(jobs);
+      } catch (error) {
+        console.error(error);
+        res.status(500).send({ message: 'Internal Server Error' });
+      }
+    });
+
+    app.get("/location-jobs/:jobLocation", async (req, res) => {
+      const jobLocation = req.params.jobLocation;
+
+      try {
+        const jobs = await jobsCollections.find({ jobLocation }).toArray();
+        res.json(jobs);
+        console.log(res)
+      } catch (error) {
+        console.error(error);
+        res.status(500).send({ message: 'Internal Server Error' });
+      }
+    });
     //get single job using id
 
     app.get("/all-jobs/:id", async (req, res) => {

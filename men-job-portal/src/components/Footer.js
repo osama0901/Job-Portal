@@ -24,11 +24,11 @@ export default function App() {
                   d="M12.378 1.602a.75.75 0 00-.756 0L3 6.632l9 5.25 9-5.25-8.622-5.03zM21.75 7.93l-9 5.25v9l8.628-5.032a.75.75 0 00.372-.648V7.93zM11.25 22.18v-9l-9-5.25v8.57a.75.75 0 00.372.648l8.628 5.033z" />
               </svg>
 
-              <Link to={`/`}>WEHIRE.COM</Link> 
-              
+              <Link to={`/`}>WEHIRE.COM</Link>
+
             </h6>
             <p>
-            Job Portal is not just another job board. It is a platform created by the professionals for the professionals to connect the right talent with the right opportunity for their career and professional growth.
+              Job Portal is not just another job board. It is a platform created by the professionals for the professionals to connect the right talent with the right opportunity for their career and professional growth.
             </p>
           </div>
           {/* <!-- Products section --> */}
@@ -38,19 +38,19 @@ export default function App() {
               Quick Links
             </h6>
             <p className="mb-4">
-              <a className="text-white text-neutral-600 dark:text-neutral-200"
+              <a className="text-white  dark:text-neutral-200"
               > <Link to={`/`}>Browse Jobs</Link> </a>
             </p>
             <p className="mb-4">
-              <a className="text-white text-neutral-600 dark:text-neutral-200"
+              <a className="text-white  dark:text-neutral-200"
               ><Link to={`/my-job`}>My Jobs</Link></a>
             </p>
             <p className="mb-4">
-              <a className="text-white text-neutral-600 dark:text-neutral-200"
+              <a className="text-white  dark:text-neutral-200"
               ><Link to={`/cvbuilder`}>Build Your CV</Link></a>
             </p>
             <p>
-              <a className="text-white text-neutral-600 dark:text-neutral-200"
+              <a className="text-white  dark:text-neutral-200"
               ><Link to={`/post-job`}>Post a Job!</Link></a>
             </p>
           </div>
@@ -58,24 +58,28 @@ export default function App() {
           <div className="text-white ">
             <h6
               className="text-white mb-4 flex justify-center font-semibold uppercase md:justify-start">
-             Company
+              Company
             </h6>
             <p className="mb-4">
-              <a className="text-white text-neutral-600 dark:text-neutral-200"
+              <a className="text-white  dark:text-neutral-200"
+              ><Link to={`/companyinfo`}>Company Information</Link></a>
+            </p>
+            <p className="mb-4">
+              <a className="text-white  dark:text-neutral-200"
               ><Link to={`/contact`}>Contact Us</Link></a>
             </p>
-            <p className="mb-4">
-              <a className=" text-white text-neutral-600 dark:text-neutral-200"
+            {/* <p className="mb-4">
+              <a className=" text-white  dark:text-neutral-200"
               >  <Link to={`/privacy`}>Privacy</Link> </a>
-            </p>
-            <p className="mb-4">
-              <a className="text-white text-neutral-600 dark:text-neutral-200"
+            </p> */}
+            {/* <p className="mb-4">
+              <a className="text-white  dark:text-neutral-200"
               ><Link to={`/termsconditions`}>Terms & Conditions</Link></a>
-            </p>
-            <p>
-              <a className="text-white text-neutral-600 dark:text-neutral-200"
+            </p> */}
+            {/* <p>
+              <a className="text-white  dark:text-neutral-200"
               ><Link to={`/faq`}>FAQ</Link></a>
-            </p>
+            </p> */}
           </div>
           {/* <!-- Contact section --> */}
           <div>
@@ -120,7 +124,7 @@ export default function App() {
                   d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z"
                   clipRule="evenodd" />
               </svg>
-              + 44 6487 415 50 
+              + 44 6487 415 50
             </p>
             <p className="text-white flex items-center justify-center md:justify-start">
               <svg
@@ -140,12 +144,12 @@ export default function App() {
       </div>
 
       <div className="">
-        
+
         <div className="flex justify-center w-full">
-       
+
           <TERipple rippleColor="light">
 
-            
+
             <a
 
               type="button"
@@ -258,7 +262,7 @@ export default function App() {
       {/* <!--Copyright section--> */}
       <div
         className="p-4 text-center bg-black ">
-         <p className='text-white'>©2024 Jobportal.com All right reserved.</p>
+        <p className='text-white'>©2024 Jobportal.com All right reserved.</p>
       </div>
     </footer>
   );
