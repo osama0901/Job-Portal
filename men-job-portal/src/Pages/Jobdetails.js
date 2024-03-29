@@ -51,13 +51,6 @@ const JobDetails = () => {
                 <div className="text-center mt-5">
                     <h2 className="text-xl md:text-2xl font-bold mb-2">Company Information</h2>
                 </div>
-<<<<<<< HEAD
-                <img src={job?.companyLogo} alt={job?.companyName} />
-                <h3 className="text-lg md:text-xl font-semibold mb-2">{job?.companyName}</h3>
-                <div className="flex flex-wrap  mb-2">
-                    <p className="text-gray-700 mr-4  md:mb-0 md:mr-0 md:pr-4"><b>Location:</b> {job?.jobLocation}</p>
-                    <p className="text-gray-700 "><b>Employment Type:</b> {job?.employementType}</p>
-=======
                 <img src={job?.companyLogo} alt={job?.companyName} className='w-50 h-50' />
                 <h3 className="text-lg md:text-xl font-semibold mb-2 mt-3 ">
                     <Link to={`/company-jobs/${job?.companyId}`}>{job?.companyName}</Link>
@@ -70,7 +63,6 @@ const JobDetails = () => {
                 </div>
                 <div className="flex items-center mb-2">
                     <p className="text-gray-700 mr-4"><b>Employment Type:</b> {job?.employementType}</p>
->>>>>>> 4ab1491565aab85cf424e6a57f000088931cede0
                 </div>
                 <div className="flex  ">
                     <p className="text-gray-700 "><b>Experience Level:</b> {job?.experienceLevel}</p>

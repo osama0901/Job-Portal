@@ -15,23 +15,12 @@ const Navbar = () => {
     { path: "/post-job", title: "Post a Job" },
     { path: "/browsejobs", title: "Browse Jobs" },
     { path: "/cvbuilder", title: "Build Your CV" },
-<<<<<<< HEAD
   ];
 
   return (
-    <header className="w-full mx-auto xl:px-24 px-6 sticky top-0 bg-white shadow-md z-50">
-      <nav className="flex justify-between items-center py-4">
-        <a href="/" className="flex items-center gap-2 text-2xl text-black font-semibold">
-=======
-
-
-  ];
-
-  return (
-    <header className="max-w-screen-2xl container mx-auto ">
-      <nav className="flex justify-between item-center py-6">
+    <header className="max-w-screen-2xl container mx-auto">
+      <nav className="flex justify-between items-center py-6">
         <a href="/" className="flex items-center gap-2 text-2xl text-black">
->>>>>>> 4ab1491565aab85cf424e6a57f000088931cede0
           <svg xmlns="http://www.w3.org/2000/svg" width="29" height="30" viewBox="0 0 29 30" fill="none">
             <circle cx="12.0143" cy="12.5143" r="12.0143" fill="#3575E2" fillOpacity="0.4" />
             <circle cx="16.9857" cy="17.4857" r="12.0143" fill="#3575E2" />
@@ -76,14 +65,9 @@ const Navbar = () => {
               </NavLink>
             </li>
           ))}
-
-<<<<<<< HEAD
           <li className="text-white py-2">
             <NavLink to="/login" onClick={handleMenuToggler}>Log In</NavLink>
           </li>
-=======
-          <li className="text-white py-1"><NavLink to="/login" >Log In</NavLink></li>
->>>>>>> 4ab1491565aab85cf424e6a57f000088931cede0
         </ul>
       </div>
     </header>
