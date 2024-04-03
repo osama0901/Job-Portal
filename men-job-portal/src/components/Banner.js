@@ -19,7 +19,7 @@ const Banner = ({ query, handleInputChange, handleLocationChange, selectedLocati
         <p className='text-lg text-white '>We Can Help You Succeed</p>
         <p className='text-lg text-white mb-8'>Browse Thousands Of Jobs From Top Companies</p>
         <form className="w-full">
-          <div className='flex justify-start md:flex-row flex-col gap-8 w-full'>
+          <div className='flex justify-start md:flex-row flex-col w-full'>
             <div className='bg-white flex md:rounded-s-md rounded shawdow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 md:w-1/2 w-full'>
               <input
                 type="text"
@@ -41,13 +41,24 @@ const Banner = ({ query, handleInputChange, handleLocationChange, selectedLocati
                 value={selectedLocation}
               >
                 <option value="">Select a city</option>
+                <option value="">All</option>
                 <option value="London">London</option>
                 <option value="Manchester">Manchester</option>
                 <option value="Birmingham">Birmingham</option>
+                <option value="Liver Pool">Liver Pool</option>
+                <option value="Glasgow">Glasgow</option>
+                <option value="Edinburgh">Edinburgh</option>
+                <option value="Sheffeild">Sheffeild</option>
+                <option value="Oxford">Oxford</option>
+                <option value="Bristol">Bristol</option>
+                <option value="Norwich">Norwich</option>
+                <option value="Cambridge">Cambridge</option>
+                <option value="Dublin">Dublin</option>
+                <option value="Nottingham">Nottingham</option>
+                <option value="Derby">Derby</option>
               </select>
               <FiMapPin className='absolute mt-4 ml-2 text-gray-400' />
             </div>
-            {/* <button type='submit' className='bg-yellow-400 py-2 px-8 text-white md:rounded-s-none rounded hover:bg-white hover:text-black'>Search</button> */}
           </div>
         </form>
       </div>
