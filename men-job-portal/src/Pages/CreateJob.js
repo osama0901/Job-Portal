@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import CreatableSelect from 'react-select/creatable';
+import toast, { Toaster } from "react-hot-toast";
 
 const CreateJob = () => {
   const [selectedOptions, setSelectedOptions] = useState(null);
+
   const {
     register,
     handleSubmit, reset,
@@ -11,6 +13,10 @@ const CreateJob = () => {
   } = useForm();
 
   const onSubmit = (data) => {
+    if (!data.jobTitle || !data.companyName || !data.minPrice || !data.maxPrice || !data.salaryType || !data.jobLocation || !data.jobPosting || !data.experienceLevel || !data.description || !data.postedBy) {
+      toast.error("All Fields are required !")
+      return;
+    }
     data.skills = selectedOptions;
     fetch("http://localhost:3001/post-job", {
       method: "POST",
@@ -19,10 +25,8 @@ const CreateJob = () => {
     })
       .then(res => res.json())
       .then(result => {
-        // console.log(result);
         if (result.acknowledge === true) {
-          alert("Job Post Succesfully!!!")
-
+          toast.success("Job add Successfully")
         }
         reset()
       })
@@ -42,6 +46,7 @@ const CreateJob = () => {
 
   return (
     <div className="max-w-screen-2xl container mx-auto x1:px-24 px-8 ">
+      <Toaster />
       {/* Form */}
       <div className="bg-[#FAFAFA] py-10 px-4 lg:px-16">
         <h1 className='container text-sky-500 font-sans text-2xl text-bold  mb-4'>Post a New Job</h1>
@@ -110,14 +115,13 @@ const CreateJob = () => {
             <label className="block mb-2 text-lg">Required Skill Sets</label>
             <CreatableSelect
               defaultValue={selectedOptions}
-              onChange={setSelectedOptions} // Corrected typo here: setSelectedOptions instead of selectedOtions
+              onChange={setSelectedOptions}
               options={options}
               isMulti
               className="create-job-input py-4"
             />
           </div>
           {/* 6th Row*/}
-
           <div className="create-job-flex">
             <div className="lg:w-1/2 w-full">
               <label className="block mb-2 text-lg">Company Logo</label>

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 export const MyJobs = () => {
     const [jobs, setJobs] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [searchText, setSearchText] = useState(""); // State for search text
+    const [searchText, setSearchText] = useState("");
 
 
     // set current page
@@ -59,21 +60,41 @@ export const MyJobs = () => {
     }
 
     const handleDelete = (id) => {
-        fetch(`http://localhost:3001/job/${id}`, {
-            method: "DELETE"
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.acknowledge === true) {
-                    alert("Job Deleted Successfully!");
-                    // After successful deletion, you might want to fetch jobs again to update the list
-                    // setIsLoading(true);
-                }
-            })
-            .catch(error => {
-                console.error('Error deleting job:', error);
-                // Handle error here
-            });
+        // Show confirmation dialog
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You will not be able to recover this job!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // If user confirms deletion, send delete request
+                fetch(`http://localhost:3001/job/${id}`, {
+                    method: "DELETE"
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.acknowledged === true) { // Check for 'acknowledged' instead of 'acknowledge'
+                            // Show success message
+                            Swal.fire(
+                                'Deleted!',
+                                'Job has been deleted.',
+                                'success'
+                            );
+                            // After successful deletion, you might want to fetch jobs again to update the list
+                            setIsLoading(true);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error deleting job:', error);
+                        // Handle error here
+                    });
+            }
+        });
     }
 
     return (
@@ -144,20 +165,20 @@ export const MyJobs = () => {
                                                         {index + 1}
                                                     </th>
                                                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        {job.jobTitle}
+                                                        {job?.jobTitle}
                                                     </td>
                                                     <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        {job.companyName}
+                                                        {job?.companyName}
                                                     </td>
                                                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                                         <i className="fas fa-arrow-up text-emerald-500 mr-4"></i>
-                                                        ${job.minPrice} - ${job.maxPrice}
+                                                        ${job?.minPrice} - ${job?.maxPrice}
                                                     </td>
                                                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <Link to={`/edit-job/${job._id}`}>Edit</Link>
+                                                        <Link to={`/edit-job/${job?._id}`}>Edit</Link>
                                                     </td>
                                                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <button onClick={() => handleDelete(job._id)} className='bg-red-700 py-2 px-6 text-white rounded-sm'>Delete</button>
+                                                        <button onClick={() => handleDelete(job?._id)} className='bg-red-700 py-2 px-6 text-white rounded-sm'>Delete</button>
                                                     </td>
                                                 </tr>
                                             ))}
