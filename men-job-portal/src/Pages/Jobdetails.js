@@ -49,7 +49,7 @@ const JobDetails = () => {
             </div>
             <div className="w-full md:w-1/4 bg-gray-100 p-4 rounded-lg">
                 <div className="text-center mt-5">
-                    <h2 className="text-xl md:text-2xl font-bold mb-4">Company Information</h2>
+                    <h2 className="text-xl md:text-2xl font-bold mb-2">Company Information</h2>
                 </div>
                 <img src={job?.companyLogo} alt={job?.companyName} className='w-50 h-50' />
                 <h3 className="text-lg md:text-xl font-semibold mb-2 mt-3 ">
@@ -64,8 +64,8 @@ const JobDetails = () => {
                 <div className="flex items-center mb-2">
                     <p className="text-gray-700 mr-4"><b>Employment Type:</b> {job?.employementType}</p>
                 </div>
-                <div className="flex items-center mb-2">
-                    <p className="text-gray-700 mr-4"><b>Experience Level:</b> {job?.experienceLevel}</p>
+                <div className="flex  ">
+                    <p className="text-gray-700 "><b>Experience Level:</b> {job?.experienceLevel}</p>
                 </div>
                 <div className="flex items-center">
                     <p className="text-gray-700 mr-4"><b>Salary Range:</b> {job?.minPrice} - {job?.maxPrice} {job?.salaryType}</p>

@@ -22,8 +22,10 @@
     "react-select": "^5.8.0",
     "sort-by": "^1.2.0",
     "sweetalert2": "^11.10.7",
+
     "tw-elements-react": "^1.0.0-alpha2",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "webpack": "^5.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -51,7 +53,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.17",
-    "css-loader": "^6.9.1",
+    "css-loader": "^6.5.0",
     "postcss": "^8.4.33",
     "postcss-loader": "^8.0.0",
     "sucrase": "^3.35.0",

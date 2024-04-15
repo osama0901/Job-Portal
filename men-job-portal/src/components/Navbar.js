@@ -15,12 +15,12 @@ const Navbar = () => {
     { path: "/post-job", title: "Post a Job" },
     { path: "/browsejobs", title: "Browse Jobs" },
     { path: "/cvbuilder", title: "Build Your CV" },
-
-
+   
+  
   ];
 
   return (
-    <header className="max-w-screen-2xl container mx-auto ">
+    <header className="max-w-screen-2xl container mx-auto xl:px-24 px-4">
       <nav className="flex justify-between item-center py-6">
         <a href="/" className="flex items-center gap-2 text-2xl text-black">
           <svg xmlns="http://www.w3.org/2000/svg" width="29" height="30" viewBox="0 0 29 30" fill="none">
@@ -70,7 +70,7 @@ const Navbar = () => {
             </li>
           ))}
 
-          <li className="text-white py-1"><NavLink to="/login" >Log In</NavLink></li>
+<li className="text-white py-1"><NavLink to="/login" >Log In</NavLink></li>
         </ul>
       </div>
     </header>
