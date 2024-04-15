@@ -199,8 +199,8 @@ const Editor = (props) => {
   };
 
   return (
-    <div className="flex flex-col bg-gray-100 rounded-lg border border-gray-300 p-6 ">
-      <div className="flex gap-4 mb-4">
+    <div className="flex flex-col bg-gray-100 rounded-lg border border-gray-300 p-6 mb-5">
+      <div className="flex flex-wrap gap-4 mb-4">
         {Object.keys(sections)?.map((key) => (
           <div
             key={key}

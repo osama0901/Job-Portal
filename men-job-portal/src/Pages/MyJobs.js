@@ -9,7 +9,7 @@ export const MyJobs = () => {
 
 
     // set current page
-    const [currentPage, setcurrentPage] = useState (1);
+    const [currentPage, setcurrentPage] = useState(1);
     const itemsPerPage = 5;
     useEffect(() => {
         const fetchJobs = async () => {
@@ -35,26 +35,26 @@ export const MyJobs = () => {
     const indexofLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexofLastItem - itemsPerPage;
     const currentJobs = jobs.slice(indexOfFirstItem, indexofLastItem);
-    
-    
+
+
     // next button & previous button
 
     const nextPage = () => {
-        if(indexofLastItem < jobs.length) {
+        if (indexofLastItem < jobs.length) {
             setcurrentPage(currentPage + 1)
         }
     }
 
     const prevPage = () => {
 
-         if(currentPage > 1){
+        if (currentPage > 1) {
             setcurrentPage(currentPage - 1)
-         }
+        }
     }
 
 
     const handleSearch = () => {
-        const filter = jobs.filter((job) =>  job.jobTitle.toLowerCase().includes(searchText.toLowerCase()));
+        const filter = jobs.filter((job) => job.jobTitle.toLowerCase().includes(searchText.toLowerCase()));
         setJobs(filter);
         setIsLoading(false);
     }
@@ -94,35 +94,32 @@ export const MyJobs = () => {
                         // Handle error here
                     });
             }
-
         });
     }
-    
+
     return (
         <div className="max-w-screen-2xl container mx-auto xl:px-24 px-4">
             <div className='my-jobs-container'>
                 <h1 className='text-sky-500 font-sans text-2xl text-bold text-center   mb-10'> {isLoading ? 'Loading...' : 'All Jobs'} </h1>
                 <div className='search-box p-2 text-center mb-2 '>
-                    <input 
+                    <input
                         onChange={(e) => setSearchText(e.target.value)}
                         type="text" name="search" id="search" className="py-2 pl-3 border focus:outline-none lg:w-6/12 mb-4 w-full"
                     />
                     <button className='bg-sky-500 text-white font-semibold px-8 py-2 rounded-sm mb-4' onClick={handleSearch}>Search</button>
                     <ul>
                         {jobs.map((job) => (
-                            <li key={job._id}>
-                                <div>{job.title}</div>
-                                <div>{job.company}</div>
+                            <li key={job?._id}>
+                                <div>{job?.title}</div>
+                                <div>{job?.company}</div>
                             </li>
                         ))}
                     </ul>
                 </div>
             </div>
-
             <section className="py-1 bg-blueGray-50">
                 <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4 mx-auto mt-24">
-                    <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded ">
-
+                    <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
                         <div className="rounded-t mb-0 px-4 py-3 border-0">
                             <div className="flex flex-wrap items-center">
                                 <div className="relative w-full px-4 max-w-full flex-grow flex-1">
@@ -135,7 +132,6 @@ export const MyJobs = () => {
                                 </div>
                             </div>
                         </div>
-
                         <div className="block w-full overflow-x-auto">
                             <table className="items-center bg-transparent w-full border-collapse">
                                 <thead>
@@ -160,13 +156,8 @@ export const MyJobs = () => {
                                         </th>
                                     </tr>
                                 </thead>
-
-
                                 {
                                     isLoading ? (<div className="flex items-center justify-center h-20"><p>Loading....!</p></div>) : (
-
-
-
                                         <tbody>
                                             {currentJobs.map((job, index) => (
                                                 <tr key={index}>
@@ -192,10 +183,8 @@ export const MyJobs = () => {
                                                 </tr>
                                             ))}
                                         </tbody>
-
                                     )
                                 }
-                                
                             </table>
                         </div>
                     </div>
@@ -204,30 +193,23 @@ export const MyJobs = () => {
                     <div className="container mx-auto px-4">
                         <div className="flex flex-wrap items-center md:justify-between justify-center">
                             <div className="w-full md:w-6/12 px-4 mx-auto text-center">
-                                
+
                             </div>
                         </div>
                     </div>
                 </footer>
-
-
-
                 {/* Pagination */}
 
                 <div className="flex justify-center text-black space-x-8 mb-8"> {
-
                     currentPage > 1 && (
                         <button className="hover:underline" onClick={prevPage}>Previous</button>
                     )
                 }
-                {
-                    indexofLastItem < jobs.length &&  (
-
-                        <button onClick={nextPage} className="hover:underline">Next</button>
-                    )
-                }
-
-
+                    {
+                        indexofLastItem < jobs.length && (
+                            <button onClick={nextPage} className="hover:underline">Next</button>
+                        )
+                    }
                 </div>
             </section>
         </div>

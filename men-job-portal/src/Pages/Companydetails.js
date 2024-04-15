@@ -1,61 +1,91 @@
-import React from 'react';
-import resumeSVG from '../resume.svg';
-import Editor from './Editor';
-import InputControl from '../components/InputControl/InputControl';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { faqs } from "../Data/Companyinfo"
+import CardBorder from "../components/CardBorder";
 
-const CvBuilder = () => {
-  const sections = {
-    basicInfo: "BasicInfo",
-    workExp: "Experience",
-    projects: "Projects",
-    education: "Education",
-    achievements: "Achievements",
-    summary: "Summary",
-    other: "Other",
+const Companydetails = () => {
+  const [selected, setSelected] = useState("faq");
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [showAllQuestions, setShowAllQuestions] = useState(false);
+
+  const selectedCategory = faqs.find((item) => item.id === selected);
+  const filteredQuestions = selectedCategory?.questions.filter((question) =>
+    question.title.toLowerCase().includes(selectedOption?.value?.toLowerCase() || "")
+  );
+
+  const handleViewMore = () => {
+    setShowAllQuestions(!showAllQuestions);
   };
 
+  const selectedQuestionIndex = filteredQuestions?.findIndex(question => question.title === selectedOption?.value);
+  const reorderedQuestions = [...(filteredQuestions || [])];
+  if (selectedQuestionIndex !== -1 && selectedQuestionIndex !== undefined) {
+    const selectedQuestion = reorderedQuestions.splice(selectedQuestionIndex, 1);
+    reorderedQuestions.unshift(selectedQuestion[0]);
+  }
+
+  const questionsToDisplay = showAllQuestions ? reorderedQuestions : reorderedQuestions.slice(0, 5);
+
   return (
-    <div className="mx-auto text-center xl:px-28 flex flex-wrap justify-center items-center mt-10">
-      <div className="w-full md:w-1/2">
-        <h4 className="text-5xl font-bold font-sans text-black">
-          <span className='text-sky-500'>A Resume</span> that stands out!
-        </h4>
-        <h4 className="text-5xl font-sans mb-4">
-          Make your own resume. <span className='text-black'>It's free</span>
-        </h4>
-      </div>
-      <div className="w-full md:w-1/2 flex justify-center">
-        <img
-          className="max-w-xs h-auto transition duration-300 transform hover:scale-110"
-          src={resumeSVG}
-          alt="Resume"
-        />
-      </div>
-      <div className="w-full mt-8">
-        <p className="text-gray-800 text-2xl">Start building your resume now!</p>
-      </div>
-      <div className="w-full mt-8 flex justify-center">
-        <div className="flex gap-4">
-        <button className="bg-sky-500 text-white rounded-full p-6 hover:bg-sky-600"></button>
-          <button className="bg-green-500 rounded-full p-6 hover:bg-green-600"></button>
-          <button className="bg-cyan-500 text-white rounded-full p-6 hover:bg-cyan-600"></button>
-          <button className="bg-slate-500 text-white rounded-full p-6 hover:bg-slate-600"></button>
-          <button className="bg-amber-500 text-white rounded-full p-6 hover:bg-amber-600"></button>
+    <div className="min-h-[100vh]">
+      <div className="px-[5%] md:px-[14%] pt-[5%]">
+        <div>
+          <h1 className='text-sky-500 font-sans text-2xl text-bold text-center mb-10'>
+            Do You Have Any Questions?
+          </h1>
         </div>
-      </div>
-      <div className="flex justify-end w-full mt-8">
-        <button className="flex items-center justify-center bg-sky-600 text-white px-6 py-2 hover:bg-sky-900 transition duration-300 transform hover:scale-110 focus:outline-none focus:ring focus:ring-sky-400">
-          Download
-          <svg className="w-6 h-6 ml-2" fill="none" stroke="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 9V3m2 0v6m-3-6l-4 4m0 0l-4-4m4 4h14m-14 0l4 4m-4-4l4-4" />
-          </svg>
-        </button>
-      </div>
-      <div className="mt-8 w-full">
-        <Editor sections={sections} />
+        <p className="text-md text-secondary">
+          Find answers to the most commonly asked questions below. Search for
+          topics you are interested in or sort by category. If you still can&apos;t find the answer you&apos;re looking for, just <Link to="/contact" className="text-blue font-semibold"> Contact us!</Link>
+        </p>
+        <div className="py-4 md:p-8 my-10 flex flex-col gap-4 lg:gap-0 lg:flex-row">
+          <div className="relative border-s border-blue w-full lg:w-[40%] h-[140px]">
+            <ol className="h-full">
+              {faqs.map((item) => (
+                <li className="ms-4 mt-4" key={item.id}>
+                  <div className="absolute w-3 h-3 bg-blue rounded-full mt-1.5 -start-1.5 border border-white"></div>
+                  <time
+                    className={`mb-1 text-md font-normal leading-none hover:text-blue cursor-pointer
+                   ${selected === item.id ? "text-blue" : "text-secondary"}`}
+                    onClick={() => setSelected(item.id)}
+                  >
+                    {item.title}
+                  </time>
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          <div className="flex-1">
+            <h2 className="font-semibold text-secondary text-xl">
+              {selectedCategory?.title}
+            </h2>
+            <hr className="h-[2px] text-black bg-tertiary my-2" />
+            <div className="w-full mt-4 flex flex-col gap-2">
+              {questionsToDisplay?.map((question, index) => (
+                <CardBorder
+                  key={index}
+                  title={question.title}
+                  content={question.desc}
+                  open={question.title === selectedOption?.value}
+                />
+              ))}
+              {!showAllQuestions && (
+                <button className="text-blue underline text-left" onClick={handleViewMore}>
+                  View More
+                </button>
+              )}
+              {showAllQuestions && (
+                <button className="text-blue underline text-left" onClick={handleViewMore}>
+                  View Less
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
-export default CvBuilder;
+export default Companydetails;
