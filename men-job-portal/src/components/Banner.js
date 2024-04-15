@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { FiMapPin, FiSearch } from "react-icons/fi";
 
-const Banner = ({ query, handleInputChange }) => {
+
+const Banner = ({ query, handleInputChange, handleLocationChange, selectedLocation }) => {
   return (
     <div className='bg-sky-500 xl:px-24 px-10 py-14 h-[80vh] flex justify-center items-center'
       style={{
@@ -58,13 +59,13 @@ const Banner = ({ query, handleInputChange }) => {
               </select>
               <FiMapPin className='absolute mt-4 ml-2 text-gray-400' />
             </div>
-
           </div>
-
-          <button type='submit'  className='bg-yellow-400 py-2 px-8 text-white md:rounded-s-none rounded hover:bg-white hover:text-black '>Search</button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
+
+
+
   );
 };
 

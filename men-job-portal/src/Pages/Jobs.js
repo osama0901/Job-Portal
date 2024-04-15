@@ -15,4 +15,3 @@ const Jobs = ({ result }) => {
     )
 }
 export default Jobs;
-

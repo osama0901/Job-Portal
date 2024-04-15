@@ -3,7 +3,7 @@ import InputField from '../components/InputField'
 
 const EmploymentType = ({ handleChange }) => {
   return (
-    <div>
+    <div className='ml-4'>
       <h4 className='text-lg font-medium mb-2'>Employment Type</h4>
       <div>
         <label className='sidebar-label-container'>
