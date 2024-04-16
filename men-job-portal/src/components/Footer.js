@@ -6,12 +6,8 @@ export default function App() {
   return (
     <footer
       className="bg-neutral-700 lg:text-left ">
-
-
-      {/* <!-- Main container div: holds the entire content of the footer, including four sections (TW Elements, Products, Useful links, and Contact), with responsive styling and appropriate padding/margins. --> */}
       <div className="mx-6 py-6 text-center md:text-left">
         <div className="grid-1 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-          {/* <!-- TW Elements section --> */}
           <div className="text-white ">
             <h6
               className="mb-4 flex items-center justify-center font-semibold uppercase md:justify-start ">
@@ -23,15 +19,12 @@ export default function App() {
                 <path
                   d="M12.378 1.602a.75.75 0 00-.756 0L3 6.632l9 5.25 9-5.25-8.622-5.03zM21.75 7.93l-9 5.25v9l8.628-5.032a.75.75 0 00.372-.648V7.93zM11.25 22.18v-9l-9-5.25v8.57a.75.75 0 00.372.648l8.628 5.033z" />
               </svg>
-
               <Link to={`/`}>WEHIRE.COM</Link>
-
             </h6>
             <p>
               Job Portal is not just another job board. It is a platform created by the professionals for the professionals to connect the right talent with the right opportunity for their career and professional growth.
             </p>
           </div>
-          {/* <!-- Products section --> */}
           <div className="text-white">
             <h6
               className="text-white mb-4 flex justify-center font-semibold uppercase md:justify-start ">
@@ -54,7 +47,6 @@ export default function App() {
               ><Link to={`/post-job`}>Post a Job!</Link></a>
             </p>
           </div>
-          {/* <!-- Useful links section --> */}
           <div className="text-white ">
             <h6
               className="text-white mb-4 flex justify-center font-semibold uppercase md:justify-start">
@@ -68,20 +60,7 @@ export default function App() {
               <a className="text-white  dark:text-neutral-200"
               ><Link to={`/contact`}>Contact Us</Link></a>
             </p>
-            {/* <p className="mb-4">
-              <a className=" text-white  dark:text-neutral-200"
-              >  <Link to={`/privacy`}>Privacy</Link> </a>
-            </p> */}
-            {/* <p className="mb-4">
-              <a className="text-white  dark:text-neutral-200"
-              ><Link to={`/termsconditions`}>Terms & Conditions</Link></a>
-            </p> */}
-            {/* <p>
-              <a className="text-white  dark:text-neutral-200"
-              ><Link to={`/faq`}>FAQ</Link></a>
-            </p> */}
           </div>
-          {/* <!-- Contact section --> */}
           <div>
             <h6
               className="text-white mb-4 flex justify-center font-semibold uppercase md:justify-start">
@@ -142,19 +121,12 @@ export default function App() {
           </div>
         </div>
       </div>
-
       <div className="">
-
         <div className="flex justify-center w-full">
-
           <TERipple rippleColor="light">
-
-
             <a
-
               type="button"
               className="m-1 h-9 w-9 rounded-full border-2 border-white uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
-
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -166,13 +138,10 @@ export default function App() {
               </svg>
             </a>
           </TERipple>
-
           <TERipple rippleColor="light">
             <a
-
               type="button"
               className="m-1 h-9 w-9 rounded-full border-2 border-white uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
-
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -184,13 +153,10 @@ export default function App() {
               </svg>
             </a>
           </TERipple>
-
           <TERipple rippleColor="light">
             <a
-
               type="button"
               className="m-1 h-9 w-9 rounded-full border-2 border-white uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
-
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -204,13 +170,10 @@ export default function App() {
               </svg>
             </a>
           </TERipple>
-
           <TERipple rippleColor="light">
             <a
-
               type="button"
               className="m-1 h-9 w-9 rounded-full border-2 border-white uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
-
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -222,13 +185,10 @@ export default function App() {
               </svg>
             </a>
           </TERipple>
-
           <TERipple rippleColor="light">
             <a
-
               type="button"
               className="m-1 h-9 w-9 rounded-full border-2 border-white uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
-
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -240,7 +200,6 @@ export default function App() {
               </svg>
             </a>
           </TERipple>
-
           <TERipple rippleColor="light">
             <a
               type="button"
@@ -255,11 +214,8 @@ export default function App() {
               </svg>
             </a>
           </TERipple>
-
         </div>
       </div>
-
-      {/* <!--Copyright section--> */}
       <div
         className="p-4 text-center bg-black ">
         <p className='text-white'>©2024 Jobportal.com All right reserved.</p>

@@ -42,7 +42,7 @@ const Jobloction = () => {
         <div className="flex justify-center">
             <div className="w-[80%]">
                 <div>
-                    <h3 className="text-lg font-bold mb-2 ml-6">{jobs?.length} Jobs</h3>
+                    <h3 className="text-lg font-bold mb-2 ml-6">{jobs?.length} {jobLocation} Jobs</h3>
                 </div>
                 {jobs?.map(job => (
                     <section key={job._id} className='card border border-gray-300 rounded p-4 mb-4 hover:shadow-lg'>
