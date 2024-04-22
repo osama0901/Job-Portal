@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import {createBrowserRouter} from "react-router-dom";
 import App from "../App";
 import Home from "../Pages/Home";
 import CreateJob from "../Pages/CreateJob";

@@ -1,12 +1,18 @@
 import React, { useState } from "react";
-import { NavLink ,Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { FaBarsStaggered, FaXmark } from "react-icons/fa6";
+import Login from "./Login"; // Import the Login component
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false); // State to track login modal
 
   const handleMenuToggler = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleLoginModal = () => {
+    setIsLoginOpen(!isLoginOpen); // Toggle the login modal
   };
 
   const navItems = [
@@ -15,8 +21,6 @@ const Navbar = () => {
     { path: "/post-job", title: "Post a Job" },
     { path: "/browsejobs", title: "Browse Jobs" },
     { path: "/cvbuilder", title: "Build Your CV" },
-   
-  
   ];
 
   return (
@@ -43,9 +47,7 @@ const Navbar = () => {
 
         {/* Signup and Login Button*/}
         <div className="text-base text-primary font-medium space-x-5 hidden lg:block">
-          <NavLink to="/login" className="py-2 px-5 border rounded">
-            Log In
-          </NavLink>
+          <button onClick={handleLoginModal} className="py-2 px-5 border rounded">Log In</button>
           <NavLink to="/sign-up" className="py-2 px-8 border rounded bg-sky-500 text-white">
             Sign Up
           </NavLink>
@@ -70,9 +72,12 @@ const Navbar = () => {
             </li>
           ))}
 
-<li className="text-white py-1"><NavLink to="/login" >Log In</NavLink></li>
+          <li className="text-white py-1"><button onClick={handleLoginModal}>Log In</button></li>
         </ul>
       </div>
+
+      {/* Login Modal */}
+      {isLoginOpen && <Login setLoginOpen={setIsLoginOpen} />}
     </header>
   );
 };

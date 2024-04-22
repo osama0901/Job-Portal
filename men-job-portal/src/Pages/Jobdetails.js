@@ -37,7 +37,7 @@ const JobDetails = () => {
 
     const relativeTime = moment(job?.jobPosting).fromNow();
     return (
-        <div className="container mx-auto py-8 flex flex-col md:flex-row justify-between items-start">
+        <div className="container mx-auto py-8 flex flex-col md:flex-row justify-between items-start w-[80vw] min-h-[80vh]">
             <div className="w-full md:w-3/4 mb-8 md:mb-0 md:pr-8">
                 <h1 className="text-3xl md:text-4xl font-bold mb-2">{job?.jobTitle}</h1>
                 <div className="flex items-center mb-4">

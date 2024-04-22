@@ -10,7 +10,7 @@ export const MyJobs = () => {
 
     // set current page
     const [currentPage, setcurrentPage] = useState(1);
-    const itemsPerPage = 5;
+    const itemsPerPage = 10;
     useEffect(() => {
         const fetchJobs = async () => {
             try {
