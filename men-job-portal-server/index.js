@@ -73,6 +73,7 @@ async function run() {
     app.get("/all-jobs", async (req, res) => {
       try {
         const jobs = await jobsCollections.find({}).toArray();
+        console.log(jobs)
         res.send(jobs);
       } catch (error) {
         console.error(error);
@@ -108,6 +109,18 @@ async function run() {
         res.status(500).send({ message: 'Internal Server Error' });
       }
     });
+    app.get("/categories/:category", async (req, res) => {
+      const category = req.params.category;
+      console.log(category)
+      try {
+        const jobs = await jobsCollections.find({ category }).toArray();
+        res.json(jobs);
+        console.log(res)
+      } catch (error) {
+        console.error(error);
+        res.status(500).send({ message: 'Internal Server Error' });
+      }
+    })
     //get single job using id
 
     app.get("/all-jobs/:id", async (req, res) => {
