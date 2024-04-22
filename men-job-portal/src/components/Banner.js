@@ -1,8 +1,10 @@
 import React from "react";
 import { FiMapPin, FiSearch } from "react-icons/fi";
+import { TbCategory } from "react-icons/tb";
 
 
-const Banner = ({ query, handleInputChange, handleLocationChange, selectedLocation }) => {
+
+const Banner = ({ query, handleInputChange, handleLocationChange, selectedLocation, handleCategories, selectedCategory }) => {
   return (
     <div className='bg-sky-500 xl:px-24 px-10 py-14 h-[80vh] flex justify-center items-center'
       style={{
@@ -58,6 +60,33 @@ const Banner = ({ query, handleInputChange, handleLocationChange, selectedLocati
                 <option value="Derby">Derby</option>
               </select>
               <FiMapPin className='absolute mt-4 ml-2 text-gray-400' />
+            </div>
+            <div className='bg-white flex md:rounded-s-none rounded shawdow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 md:w-1/3 w-full hover:pointer'>
+              <select
+                name="category"
+                id="category"
+                className='block flex-1 border-0 bg-transparent py-3 pl-10 pr-4 text-grey-900 placeholder:text-gray-400 focus=right-0 sm:text-sm sm:leading-6'
+                onChange={(event) => handleCategories(event.target.value)}
+                value={selectedCategory}
+              >
+                <option value="">Select a Category</option>
+                <option value="">All</option>
+                <option value="InformationTechnology ">Information Technology </option>
+                <option value="LifeSciencesHealthcare">Life Sciences & Healthcare</option>
+                <option value="Retail">Retail</option>
+                <option value="AccountingFinance">Accounting / Finance</option>
+                <option value="DistributionLogistics">Distribution/Logistics</option>
+                <option value="OilGas">Oil & Gas</option>
+                <option value="LegalProfessionalServices">Legal & Professional Services</option>
+                <option value="SalesBusinessDevelopment">Sales/Business Development</option>
+                <option value="HealthcareMedical">Healthcare & Medical</option>
+                <option value="HumanResource">Human Resource</option>
+                <option value="Manufacturing">Manufacturing</option>
+                <option value="DesignMultimedia">Design & Multimedia</option>
+                <option value="Government">Government</option>
+                <option value="Engineering Jobs">Engineering Jobs</option>
+              </select>
+              <TbCategory className='absolute mt-4 ml-2 text-gray-400' />
             </div>
           </div>
         </form>

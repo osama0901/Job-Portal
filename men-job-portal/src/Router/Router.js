@@ -1,7 +1,6 @@
-import {createBrowserRouter} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import Home from "../Pages/Home";
-import About from "../Pages/About";
 import CreateJob from "../Pages/CreateJob";
 import { MyJobs } from "../Pages/MyJobs";
 import Updatejob from "../Pages/Updatejob";
@@ -14,6 +13,7 @@ import JobDetails from "../Pages/Jobdetails";
 import Companyjobs from "../Pages/Companyjobs";
 import Jobloction from "../Pages/Jobloction";
 import Companydetails from "../Pages/Companydetails";
+import Categories from "../Pages/Categories";
 
 const router = createBrowserRouter([
   {
@@ -78,8 +78,12 @@ const router = createBrowserRouter([
         path: "location-jobs/:jobLocation",
         element: <Jobloction />,
         loader: ({ params }) => fetch(`http://localhost:3001/location-jobs/${params.jobLocation}`)
+      },
+      {
+        path: "categories/:category",
+        element: <Categories />,
+        loader: ({ params }) => fetch(`http://localhost:3001/categories/${params.category}`)
       }
-
 
 
 

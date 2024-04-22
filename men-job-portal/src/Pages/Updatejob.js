@@ -1,5 +1,5 @@
 import React from 'react'
-import {useLoaderData, useParams } from 'react-router-dom';
+import { useLoaderData, useParams } from 'react-router-dom';
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import CreatableSelect from 'react-select/creatable';
@@ -7,13 +7,11 @@ import CreatableSelect from 'react-select/creatable';
 
 const Updatejob = () => {
 
-    const {id} = useParams();
-  console.log(id);
-  const {_id, jobTitle, companyName, minPrice, maxPrice, salaryType, jobLocation, jobPosting, experienceLevel, companyLogo, employementType
-, description, postedBy, skills} =useLoaderData();
-console.log(jobTitle);
+  const { id } = useParams();
+  const { jobTitle, companyName, minPrice, maxPrice, salaryType, jobLocation, jobPosting, experienceLevel, companyLogo, employementType
+    , description, postedBy, skills } = useLoaderData();
 
-const [selectedOptions, setSelectedOptions] = useState(null);
+  const [selectedOptions, setSelectedOptions] = useState(null);
   const {
     register,
     handleSubmit, reset,
@@ -21,9 +19,9 @@ const [selectedOptions, setSelectedOptions] = useState(null);
   } = useForm();
 
   const onSubmit = (data) => {
-   
+
     data.skills = selectedOptions;
-    data._id=id;
+    data._id = id;
     fetch("http://localhost:3001/post-job", {
       method: "POST",
       headers: { 'content-type': 'application/json' },
@@ -32,7 +30,7 @@ const [selectedOptions, setSelectedOptions] = useState(null);
       .then(res => res.json())
       .then(result => {
         console.log(result);
-        if(result.acknowledge === true){
+        if (result.acknowledge === true) {
           alert("Job Post Succesfully!!!")
 
         }
@@ -154,21 +152,21 @@ const [selectedOptions, setSelectedOptions] = useState(null);
 
           <label className="block mb-2 text-lg">Job Description</label>
           <textarea className="w-full pl-3 py-1.5 focus:outline-none placeholder:text-gray-700"
-          rows={6} defaultValue={description}
-          placeholder="As a Product Design Manager at GitLab, you will be responsible for managing a team of up to 5 talented Product Designers.” This approach can allow job seekers to envision themselves in the role so they can decide if it's the right fit for them."
-          {...register("description")}/>
+            rows={6} defaultValue={description}
+            placeholder="As a Product Design Manager at GitLab, you will be responsible for managing a team of up to 5 talented Product Designers.” This approach can allow job seekers to envision themselves in the role so they can decide if it's the right fit for them."
+            {...register("description")} />
 
 
 
           {/* Last Row*/}
 
-           <div className="w-full ">
-            
-          <label  className="block mb-2 text-lg">Job Posted By</label>
+          <div className="w-full ">
 
-          <input type="email" defaultValue={postedBy} placeholder="Your Email" {...register("postedBy")} className="create-job-input" />
-           </div>
-          <input type="submit" className="block mt-12 bg-blue text-white font-semibold px-10 py-2 rounded-sm cursor-pointer" value="Update Job"/> 
+            <label className="block mb-2 text-lg">Job Posted By</label>
+
+            <input type="email" defaultValue={postedBy} placeholder="Your Email" {...register("postedBy")} className="create-job-input" />
+          </div>
+          <input type="submit" className="block mt-12 bg-blue text-white font-semibold px-10 py-2 rounded-sm cursor-pointer" value="Update Job" />
         </form>
       </div>
     </div>

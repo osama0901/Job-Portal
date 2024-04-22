@@ -37,32 +37,30 @@ const Home = () => {
   const handleLocationChange = (location) => {
     setSelectedLocation(location);
   };
+  const handleCategories = (Category) => {
+    setSelectedCategory(Category);
+  };
 
   //filter  jobs by title Create by Usama
   // const filteredItems = jobs.filter((job) => job?.jobTitle.toLowerCase().indexOf(query.toLocaleLowerCase()) !== -1)
-
   const filteredItems = jobs.filter((job) => {
-    const jobTitleMatch = job?.jobTitle.toLowerCase().indexOf(query.toLowerCase()) !== -1;
-    const companyNameMatch = job?.companyName.toLowerCase().indexOf(query.toLowerCase()) !== -1;
-    const locationMatch = !selectedLocation || job?.jobLocation.toLowerCase() === selectedLocation.toLowerCase();
-    return (jobTitleMatch || companyNameMatch) && locationMatch;
+    const jobTitleMatch = job?.jobTitle?.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+    const companyNameMatch = job?.companyName?.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+    const locationMatch = !selectedLocation || (job?.jobLocation && job.jobLocation.toLowerCase() === selectedLocation.toLowerCase());
+    const categoryMatch = !selectedCategory || (job?.category && job.category.toLowerCase() === selectedCategory.toLowerCase());
+    return (jobTitleMatch || companyNameMatch) && locationMatch && categoryMatch;
   });
 
   //================Radio Base Button filtering-------------
-
   const handleChange = (event) => {
     setSelectedCategory(event.target.value)
   }
-
   // ===================Buttons Side  filtering---------------
-
   const handleClick = (event) => {
     // console.log(event.target.value);
     setSelectedCategory(event.target.value)
   }
-
   // calculate inndex Range
-
   const calculatePageRange = () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
@@ -70,41 +68,33 @@ const Home = () => {
   }
 
   // funxtion for the next page
-
   const nextPage = () => {
 
     if (currentPage < Math.ceil(filteredItems.length / itemsPerPage)) {
-
       setCurrentPage(currentPage + 1);
-
     }
 
   }
-
   // function for current page
-
   const prevPage = () => {
-
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1)
     }
   }
-
   // main funtion 
 
   const filteredData = (jobs, selected, query, selectedLocation) => {
     let filteredJobs = jobs;
-
     // Filtering input
     if (query) {
       filteredJobs = filteredItems;
     }
-
     // Category filtering
     if (selected) {
       // console.log(selected);
-      filteredJobs = filteredJobs.filter(({ jobLocation, maxPrice, experiencedLevel, salaryType, employementType, postingDate }) =>
+      filteredJobs = filteredJobs.filter(({ jobLocation, maxPrice, experiencedLevel, salaryType, employementType, postingDate, category }) =>
         (jobLocation && jobLocation.toLowerCase() === selected.toLowerCase()) ||
+        (category && category.toLowerCase() === selected.toLowerCase()) ||
         (maxPrice && parseInt(maxPrice) <= parseInt(selected)) ||
         (postingDate && postingDate >= selected) ||
         (salaryType && salaryType.toLowerCase() === selected.toLowerCase()) ||
@@ -118,10 +108,7 @@ const Home = () => {
         job.jobLocation.toLowerCase() === selectedLocation.toLowerCase()
       );
     }
-
-
     //slice the data based on current page
-
     const { startIndex, endIndex } = calculatePageRange();
     filteredJobs = filteredJobs.slice(startIndex, endIndex)
     return filteredJobs.map((data, i) => <Card key={i} data={data} />);
@@ -134,7 +121,9 @@ const Home = () => {
       {/* Pass query and handleInputChange as props to the Banner component */}
       <Banner query={query}
         handleInputChange={handleInputChange}
-        handleLocationChange={handleLocationChange} />
+        handleLocationChange={handleLocationChange}
+        handleCategories={handleCategories}
+      />
       {/* Main Content  */}
       <div className="bg-[#FAFAFA] md:grid grid-cols-4 gap-8 lg:px-6 px-4 py-12">
         {/* Left Side  */}
@@ -152,7 +141,7 @@ const Home = () => {
             ) : (
               <>
                 <h3 className="text-lg font-bold mb-2">{result?.length} Jobs</h3>
-                <p>No Data Found!</p>
+                <p className="flex justify-center font-bold">No Data Found!</p>
               </>
             )}
           {/*pagination here */}

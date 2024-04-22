@@ -13,7 +13,19 @@ const CreateJob = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    if (!data.jobTitle || !data.companyName || !data.minPrice || !data.maxPrice || !data.salaryType || !data.jobLocation || !data.jobPosting || !data.experienceLevel || !data.description || !data.postedBy) {
+    if (!data.jobTitle
+      || !data.companyName
+      || !data.minPrice
+      || !data.maxPrice
+      || !data.salaryType
+      || !data.jobLocation
+      || !data.jobPosting
+      || !data.experienceLevel
+      || !data.description
+      || !data.postedBy
+      || !data.category
+    ) 
+      {
       toast.error("All Fields are required !")
       return;
     }
@@ -102,10 +114,32 @@ const CreateJob = () => {
             <div className="lg:w-1/2 w-full">
               <label className="block mb-2 text-lg">Experience Level</label>
               <select {...register("experienceLevel")} className="create-job-input">
-                <option value="">Choose your experience</option>
+                <option value="">Choose experience</option>
                 <option value="noExperience">No Experience</option>
                 <option value="Intership">Intership</option>
                 <option value="Work Remotely">Work Remotely</option>
+              </select>
+            </div>
+          </div>
+          <div className="create-job-flex">
+            <div className="lg:w-1/2 w-full">
+              <label className="block mb-2 text-lg">Category</label>
+              <select {...register("category")} className="create-job-input">
+                <option value="">Choose category</option>
+                <option value="InformationTechnology ">Information Technology </option>
+                <option value="LifeSciencesHealthcare">Life Sciences & Healthcare</option>
+                <option value="Retail">Retail</option>
+                <option value="AccountingFinance">Accounting / Finance</option>
+                <option value="DistributionLogistics">Distribution/Logistics</option>
+                <option value="OilGas">Oil & Gas</option>
+                <option value="LegalProfessionalServices">Legal & Professional Services</option>
+                <option value="SalesBusinessDevelopment">Sales/Business Development</option>
+                <option value="HealthcareMedical">Healthcare & Medical</option>
+                <option value="HumanResource">Human Resource</option>
+                <option value="Manufacturing">Manufacturing</option>
+                <option value="DesignMultimedia">Design & Multimedia</option>
+                <option value="Government">Government</option>
+                <option value="Engineering Jobs">Engineering Jobs</option>
               </select>
             </div>
           </div>
