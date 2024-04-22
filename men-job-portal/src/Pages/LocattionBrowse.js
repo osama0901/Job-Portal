@@ -1,6 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
 
 const LocationBrowse = () => {
+    const [jobsData, setJobsData] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+
+    useEffect(() => {
+        fetch("http://localhost:3001/all-jobs")
+            .then(response => response?.json())
+            .then(data => {
+                setJobsData(data);
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error("Error fetching data:", error);
+                setLoading(false);
+            });
+    }, []);
+
+    const getJobCount = (jobLocation) => {
+        const jobLocationJobs = jobsData?.filter(job => job?.jobLocation?.toLowerCase() === jobLocation?.toLowerCase());
+        return jobLocationJobs?.length;
+    };
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center">
+                <img src="/images/loader.gif" alt="Loading..." style={{ height: "100px" }} />
+            </div>
+        );
+    }
+
+
     return (
         <>
             <div className='flex flex-col px-10'>
@@ -10,125 +42,74 @@ const LocationBrowse = () => {
                 <hr className='p-5' />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 items-center justify-center mb-10 px-10">
-                {/* First div */}
                 <div className=" bg-gray-100 p-4 rounded-lg">
-                    <div className='flex justify-between  bg-white py-3 px-3 rounded-lg'>
-                        <h3 className="text-sm font-bold cursor-pointer hover:text-[#98d8f4]">
-                            London
-                        </h3>
-                        <p className='bg-[#e7f8fd] text-gray-900 px-2 cursor-pointer'>
-                            3
-                        </p>
-                    </div>
-                    <div className='flex justify-between  bg-white py-3 px-3 rounded-lg mt-3'>
-                        <h3 className="text-sm font-bold cursor-pointer hover:text-[#98d8f4] ">
-                            Manchester
-                        </h3>
-                        <p className='bg-[#e7f8fd] text-gray-900 px-2 cursor-pointer'>6</p>
-                    </div> <div className='flex justify-between  bg-white py-3 px-3 rounded-lg mt-3'>
-                        <h3 className="text-sm font-bold cursor-pointer hover:text-[#98d8f4] ">
-                            Birmingham
-                        </h3>
-                        <p className='bg-[#e7f8fd] text-gray-900 px-2 cursor-pointer'>1</p>
-                    </div>
-                    <div className='flex justify-between  bg-white py-3 px-3 rounded-lg mt-3'>
-                        <h3 className="text-sm font-bold cursor-pointer hover:text-[#98d8f4] ">
-                            Liver Pool
-                        </h3>
-                        <p className='bg-[#e7f8fd] text-gray-900 px-2 cursor-pointer'>3</p>
-                    </div>
-                    <div className='flex justify-between  bg-white py-3 px-3 rounded-lg mt-3'>
-                        <h3 className="text-sm font-bold cursor-pointer hover:text-[#98d8f4] ">
-                            City of Westminster
-                        </h3>
-                        <p className='bg-[#e7f8fd] text-gray-900 px-2 cursor-pointer'>3</p>
-                    </div>
+                    {[
+                        { name: 'London', jobLocation: 'London' },
+                        { name: 'Manchester', jobLocation: 'Manchester' },
+                        { name: 'Birmingham', jobLocation: 'Birmingham' },
+                        { name: 'Liver Pool', jobLocation: 'LiverPool' },
+                        { name: 'City of Westminster', jobLocation: 'CityofWestminster' },
+
+                    ].map(({ name, jobLocation }) => (
+                        <Link to={`/location-jobs/${jobLocation}`}>
+                            <div key={jobLocation} className="bg-white py-3 px-3 rounded-lg mt-3 flex justify-between">
+                                <h3 className="text-sm font-bold cursor-pointer hover:text-[#98d8f4]">
+                                    {name}
+                                </h3>
+
+                                <p className="bg-[#e7f8fd] text-gray-900 px-2 cursor-pointer">
+                                    {jobsData.length ? getJobCount(jobLocation) : 0}
+                                </p>
+
+                            </div>
+                        </Link>
+                    ))}
                 </div>
-                {/* Second div */}
                 <div className=" bg-gray-100 p-4 rounded-lg">
-                    <div className='flex justify-between  bg-white py-3 px-3 rounded-lg'>
-                        <h3 className="text-sm font-bold cursor-pointer hover:text-[#98d8f4] ">
-                            Glasgow
-                        </h3>
-                        <p className='bg-[#e7f8fd] text-gray-900 px-2 cursor-pointer'>
-                            13
-                        </p>
-                    </div>
-                    <div className='flex justify-between  bg-white py-3 px-3 rounded-lg mt-3'>
-                        <h3 className="text-sm font-bold cursor-pointer hover:text-[#98d8f4] ">
-                            Edinburgh
-                        </h3>
-                        <p className='bg-[#e7f8fd] text-gray-900 px-2 cursor-pointer'>
-                            10
-                        </p>
-                    </div>
-                    <div className='flex justify-between  bg-white py-3 px-3 rounded-lg mt-3'>
-                        <h3 className="text-sm font-bold cursor-pointer hover:text-[#98d8f4] ">
-                            Sheffeild
-                        </h3>
-                        <p className='bg-[#e7f8fd] text-gray-900 px-2 cursor-pointer'>
-                            10
-                        </p>
-                    </div>
-                    <div className='flex justify-between  bg-white py-3 px-3 rounded-lg mt-3'>
-                        <h3 className="text-sm font-bold cursor-pointer hover:text-[#98d8f4] ">
-                            Oxford
-                        </h3>
-                        <p className='bg-[#e7f8fd] text-gray-900 px-2 cursor-pointer'>
-                            25
-                        </p>
-                    </div>
-                    <div className='flex justify-between  bg-white py-3 px-3 rounded-lg mt-3'>
-                        <h3 className="text-sm font-bold cursor-pointer hover:text-[#98d8f4] ">
-                            Bristol
-                        </h3>
-                        <p className='bg-[#e7f8fd] text-gray-900 px-2 cursor-pointer'>
-                            20
-                        </p>
-                    </div>
+                    {[
+                        { name: 'Glasgow', jobLocation: 'Glasgow' },
+                        { name: 'Edinburgh', jobLocation: 'Edinburgh' },
+                        { name: 'Sheffeild', jobLocation: 'Sheffeild' },
+                        { name: 'Oxford', jobLocation: 'Oxford' },
+                        { name: 'Bristol', jobLocation: 'Bristol' },
+
+                    ].map(({ name, jobLocation }) => (
+                        <Link to={`/location-jobs/${jobLocation}`}>
+                            <div key={jobLocation} className="bg-white py-3 px-3 rounded-lg mt-3 flex justify-between">
+                                <h3 className="text-sm font-bold cursor-pointer hover:text-[#98d8f4]">
+                                    {name}
+                                </h3>
+
+                                <p className="bg-[#e7f8fd] text-gray-900 px-2 cursor-pointer">
+                                    {jobsData.length ? getJobCount(jobLocation) : 0}
+                                </p>
+
+                            </div>
+                        </Link>
+                    ))}
                 </div>
-                {/* Third div */}
                 <div className=" bg-gray-100 p-4 rounded-lg">
-                    <div className='flex justify-between  bg-white py-3 px-3 rounded-lg'>
-                        <h3 className="text-sm font-bold cursor-pointer hover:text-[#98d8f4] ">
-                            Norwich
-                        </h3>
-                        <p className='bg-[#e7f8fd] text-gray-900 px-2 cursor-pointer'>
-                            13
-                        </p>
-                    </div>
-                    <div className='flex justify-between  bg-white py-3 px-3 rounded-lg mt-3'>
-                        <h3 className="text-sm font-bold cursor-pointer hover:text-[#98d8f4] ">
-                            Cambridge
-                        </h3>
-                        <p className='bg-[#e7f8fd] text-gray-900 px-2 cursor-pointer'>
-                            10
-                        </p>
-                    </div>
-                    <div className='flex justify-between  bg-white py-3 px-3 rounded-lg mt-3'>
-                        <h3 className="text-sm font-bold cursor-pointer hover:text-[#98d8f4] ">
-                            Dublin
-                        </h3>
-                        <p className='bg-[#e7f8fd] text-gray-900 px-2 cursor-pointer'>
-                            10
-                        </p>
-                    </div>
-                    <div className='flex justify-between  bg-white py-3 px-3 rounded-lg mt-3'>
-                        <h3 className="text-sm font-bold cursor-pointer hover:text-[#98d8f4] ">
-                            Nottingham
-                        </h3>
-                        <p className='bg-[#e7f8fd] text-gray-900 px-2 cursor-pointer'>
-                            25
-                        </p>
-                    </div>
-                    <div className='flex justify-between  bg-white py-3 px-3 rounded-lg mt-3'>
-                        <h3 className="text-sm font-bold cursor-pointer hover:text-[#98d8f4] ">
-                            Derby
-                        </h3>
-                        <p className='bg-[#e7f8fd] text-gray-900 px-2 cursor-pointer'>
-                            20
-                        </p>
-                    </div>
+                    {[
+                        { name: 'Norwich', jobLocation: 'Norwich' },
+                        { name: 'Cambridge', jobLocation: 'Cambridge' },
+                        { name: 'Dublin', jobLocation: 'Dublin' },
+                        { name: 'Nottingham', jobLocation: 'Nottingham' },
+                        { name: 'Derby', jobLocation: 'Derby' },
+
+                    ].map(({ name, jobLocation }) => (
+                        <Link to={`/location-jobs/${jobLocation}`}>
+                            <div key={jobLocation} className="bg-white py-3 px-3 rounded-lg mt-3 flex justify-between">
+                                <h3 className="text-sm font-bold cursor-pointer hover:text-[#98d8f4]">
+                                    {name}
+                                </h3>
+
+                                <p className="bg-[#e7f8fd] text-gray-900 px-2 cursor-pointer">
+                                    {jobsData.length ? getJobCount(jobLocation) : 0}
+                                </p>
+
+                            </div>
+                        </Link>
+                    ))}
                 </div>
             </div>
         </>

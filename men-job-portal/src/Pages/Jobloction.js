@@ -40,7 +40,7 @@ const Jobloction = () => {
 
     return (
         <div className="flex justify-center">
-            <div className="w-[80%]">
+            <div className="w-[80vw] min-h-[80vh] ">
                 <div>
                     <h3 className="text-lg font-bold mb-2 ml-6">{jobs?.length} {jobLocation} Jobs</h3>
                 </div>
