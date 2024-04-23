@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const port = process.env.PORT || 3001;
 require('dotenv').config();
 
@@ -24,6 +26,7 @@ async function run() {
     await client.connect();
     const db = client.db("MenJobPortal");
     const jobsCollections = db.collection("demoJobs");
+    const usersCollection = db.collection("users");
 
     app.post("/post-job", async (req, res) => {
       let body = req.body;
@@ -111,11 +114,9 @@ async function run() {
     });
     app.get("/categories/:category", async (req, res) => {
       const category = req.params.category;
-      console.log(category)
       try {
         const jobs = await jobsCollections.find({ category }).toArray();
         res.json(jobs);
-        console.log(res)
       } catch (error) {
         console.error(error);
         res.status(500).send({ message: 'Internal Server Error' });
@@ -164,6 +165,64 @@ async function run() {
       const filter = { _id: new ObjectId(id) };
       const result = await jobsCollections.deleteOne(filter); // Corrected method name
       res.send(result);
+    });
+
+    app.post("/login", async (req, res) => {
+      const { email, password } = req.body;
+
+      try {
+        // Check if user with provided email exists
+        const user = await usersCollection.findOne({ email });
+        if (!user) {
+          return res.status(404).json({ message: "User not found" });
+        }
+
+        // Compare passwords
+        const passwordMatch = await bcrypt.compare(password, user.password);
+        if (!passwordMatch) {
+          return res.status(401).json({ message: "Invalid credentials" });
+        }
+
+        // Generate JWT token
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '24h' });
+
+        res.json({ token });
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+      }
+    });
+
+    app.post("/signup", async (req, res) => {
+      const { firstName, lastName, email, password, phoneNumber } = req.body;
+
+      try {
+        // Check if user with provided email already exists
+        const existingUser = await usersCollection.findOne({ email });
+        if (existingUser) {
+          return res.status(400).json({ message: "User already exists" });
+        }
+
+        // Hash password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Create user document
+        const newUser = {
+          firstName,
+          lastName,
+          email,
+          password: hashedPassword,
+          phoneNumber,
+        };
+
+        // Insert user into the database
+        await usersCollection.insertOne(newUser);
+
+        res.status(201).json({ message: "User created successfully" });
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+      }
     });
 
     await client.db('admin').command({ ping: 1 });
