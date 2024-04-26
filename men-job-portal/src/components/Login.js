@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
-const Login = ({ setLoginOpen, setsignupOpen }) => {
+const Login = ({ setLoginOpen, setsignupOpen, setUserName }) => {
     const contentRef = useRef(null);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -19,22 +19,27 @@ const Login = ({ setLoginOpen, setsignupOpen }) => {
         e.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:3001/login',
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ email, password }),
-
-                });
+            const response = await fetch('http://localhost:3001/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
 
             if (response.ok) {
-                // Login successful, perform necessary actions
-                toast.success("Login successful!");
-                setEmail("")
-                setPassword("")
-                // setLoginOpen(false)
+                const data = await response.json();
+                // Save user data to local storage
+                localStorage.setItem('userEmail', email);
+                localStorage.setItem('userName', data.name);
+                localStorage.setItem('userToken', data.token); 
+
+                // toast.success("Login successful!");
+                setEmail("");
+                setPassword("");
+                setLoginOpen(false);
+                setUserName(data.name)
+
             } else {
                 // Login failed, display error message to the user
                 toast.error("Invalid email or password. Please try again.");
@@ -44,6 +49,7 @@ const Login = ({ setLoginOpen, setsignupOpen }) => {
             toast.error("An error occurred during login. Please try again later.");
         }
     };
+
 
     useEffect(() => {
         const handleClickOutside = (event) => {
