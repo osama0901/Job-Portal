@@ -10,13 +10,6 @@ const Navbar = () => {
   const [SignupOpen, setSignupOpen] = useState(false);
   const [userName, setUserName] = useState(null);
 
-  // useEffect(() => {
-  //   // Check if user's name exists in local storage
-  //   const storedName = localStorage.getItem('userName');
-  //   if (storedName) {
-  //     setUserName(storedName);
-  //   }
-  // }, []);
 
   const handleMenuToggler = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -64,7 +57,7 @@ const Navbar = () => {
         </Link>
 
         {/* Nav items for large devices */}
-        <ul className="hidden md:flex gap-12">
+        <ul className="hidden md:flex gap-12" id="navbar">
           {navItems.map(({ path, title }) => (
             <li key={path} className="text-base text-primary">
               <NavLink to={path} className={({ isActive }) => (isActive ? "active" : "")}>
