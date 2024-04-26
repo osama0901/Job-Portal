@@ -167,6 +167,44 @@ async function run() {
       res.send(result);
     });
 
+    // Signup endpoint
+    app.post("/signup", async (req, res) => {
+      const { firstName, lastName, email, password, phoneNumber } = req.body;
+
+      try {
+        // Check if user with provided email already exists
+        const existingUser = await usersCollection.findOne({ email });
+        if (existingUser) {
+          return res.status(400).json({ message: "User already exists" });
+        }
+
+        // Hash password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Generate a unique user ID
+        const userId = new ObjectId(); // Generate ObjectId
+
+        // Create user document
+        const newUser = {
+          _id: userId, // Assign ObjectId as the user ID
+          firstName,
+          lastName,
+          email,
+          password: hashedPassword,
+          phoneNumber,
+        };
+
+        // Insert user into the database
+        await usersCollection.insertOne(newUser);
+
+        res.status(201).json({ message: "User created successfully", userId }); // Return userId in the response
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+      }
+    });
+
+    // Login endpoint
     app.post("/login", async (req, res) => {
       const { email, password } = req.body;
 
@@ -186,44 +224,14 @@ async function run() {
         // Generate JWT token
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '24h' });
 
-        res.json({ token });
+        // Send back the token, user's name, and user's ID
+        res.json({ token, name: user.firstName , userId: user._id });
       } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal Server Error' });
       }
     });
 
-    app.post("/signup", async (req, res) => {
-      const { firstName, lastName, email, password, phoneNumber } = req.body;
-
-      try {
-        // Check if user with provided email already exists
-        const existingUser = await usersCollection.findOne({ email });
-        if (existingUser) {
-          return res.status(400).json({ message: "User already exists" });
-        }
-
-        // Hash password
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        // Create user document
-        const newUser = {
-          firstName,
-          lastName,
-          email,
-          password: hashedPassword,
-          phoneNumber,
-        };
-
-        // Insert user into the database
-        await usersCollection.insertOne(newUser);
-
-        res.status(201).json({ message: "User created successfully" });
-      } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Internal Server Error' });
-      }
-    });
 
     await client.db('admin').command({ ping: 1 });
     console.log('Pinged your deployment. You successfully connected to MongoDB!');
