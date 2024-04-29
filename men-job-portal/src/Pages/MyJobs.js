@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
 
 export const MyJobs = () => {
     const [jobs, setJobs] = useState([]);
@@ -200,14 +201,18 @@ export const MyJobs = () => {
                 </footer>
                 {/* Pagination */}
 
-                <div className="flex justify-center text-black space-x-8 mb-8"> {
+                <div className="flex justify-end text-black space-x-8 mb-8"> {
                     currentPage > 1 && (
-                        <button className="hover:underline" onClick={prevPage}>Previous</button>
+                        <button className="hover:underline" onClick={prevPage}>
+                            <MdArrowBackIos size={20} />
+                        </button>
                     )
                 }
                     {
                         indexofLastItem < jobs.length && (
-                            <button onClick={nextPage} className="hover:underline">Next</button>
+                            <button onClick={nextPage} className="hover:underline">
+                                <MdArrowForwardIos size={20} />
+                            </button>
                         )
                     }
                 </div>

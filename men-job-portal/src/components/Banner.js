@@ -15,11 +15,11 @@ const Banner = ({ query, handleInputChange, handleLocationChange, selectedLocati
       }}
     >
       <div className="w-full md:w-[80%] flex flex-col items-center justify-center">
-        <h1 className='text-6xl font-sans text-white mb-10'>
+        <h1 className='text-6xl font-sans text-white mb-10 hidden sm:block'>
           Find Your<span className="text-white"> New Job Today.</span>
         </h1>
-        <p className='text-lg text-white '>We Can Help You Succeed</p>
-        <p className='text-lg text-white mb-8'>Browse Thousands Of Jobs From Top Companies</p>
+        <p className='text-lg text-white hidden sm:block'>We Can Help You Succeed</p>
+        <p className='text-lg text-white mb-8 hidden sm:block'>Browse Thousands Of Jobs From Top Companies</p>
         <form className="w-full">
           <div className='flex justify-start md:flex-row flex-col w-full'>
             <div className='bg-white flex md:rounded-s-md rounded shawdow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 md:w-1/2 w-full'>
@@ -47,10 +47,10 @@ const Banner = ({ query, handleInputChange, handleLocationChange, selectedLocati
                 <option value="London">London</option>
                 <option value="Manchester">Manchester</option>
                 <option value="Birmingham">Birmingham</option>
-                <option value="Liver Pool">Liver Pool</option>
+                <option value="Liverpool">Liverpool</option>
                 <option value="Glasgow">Glasgow</option>
                 <option value="Edinburgh">Edinburgh</option>
-                <option value="Sheffeild">Sheffeild</option>
+                <option value="Sheffield">Sheffield</option>
                 <option value="Oxford">Oxford</option>
                 <option value="Bristol">Bristol</option>
                 <option value="Norwich">Norwich</option>

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import Swal from 'sweetalert2';
 
 const Login = ({ setLoginOpen, setsignupOpen, setUserName }) => {
     const contentRef = useRef(null);
@@ -29,24 +29,36 @@ const Login = ({ setLoginOpen, setsignupOpen, setUserName }) => {
 
             if (response.ok) {
                 const data = await response.json();
-                // Save user data to local storage
                 localStorage.setItem('userEmail', email);
-                localStorage.setItem('userName', data.name);
-                localStorage.setItem('userToken', data.token); 
+                localStorage.setItem('userName', data?.name);
+                localStorage.setItem('userToken', data?.token);
 
-                // toast.success("Login successful!");
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Login successful!',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+
                 setEmail("");
                 setPassword("");
                 setLoginOpen(false);
-                setUserName(data.name)
+                setUserName(data?.name);
 
             } else {
-                // Login failed, display error message to the user
-                toast.error("Invalid email or password. Please try again.");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Invalid email or password. Please try again.'
+                });
             }
         } catch (error) {
             console.error("Error occurred during login:", error);
-            toast.error("An error occurred during login. Please try again later.");
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'An error occurred during login. Please try again later.'
+            });
         }
     };
 
@@ -66,7 +78,6 @@ const Login = ({ setLoginOpen, setsignupOpen, setUserName }) => {
 
     return (
         <>
-            <Toaster />
             <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 z-50 ">
                 <div className="bg-white rounded-lg p-8 max-w-md w-full relative" ref={contentRef}>
                     <button className="absolute top-0 right-0 m-3" onClick={close}>

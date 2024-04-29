@@ -5,6 +5,7 @@ import Jobs from "./Jobs";
 import Sidebar from "../sidebard/Sidebar";
 import Newsletter from "../components/Newsletter";
 import Arrow from "../components/Arrow";
+import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
 
 const Home = () => {
   const [selectedLocation, setSelectedLocation] = useState("");
@@ -146,13 +147,13 @@ const Home = () => {
             )}
           {/*pagination here */}
           {result.length > 0 && (
-            <div className="flex justify-center mt-4 space-x-8">
+            <div className="flex justify-end  space-x-6">
               <button onClick={prevPage} disabled={currentPage === 1} className="cursor-pointer">
-                Previous
+                <MdArrowBackIos size={20} />
               </button>
               <span className="mx-2">Page {currentPage} of {Math.ceil(filteredItems.length / itemsPerPage)}</span>
               <button onClick={nextPage} disabled={currentPage === Math.ceil(filteredItems.length / itemsPerPage)} className="cursor-pointer">
-                Next
+                <MdArrowForwardIos size={20} />
               </button>
             </div>
           )}

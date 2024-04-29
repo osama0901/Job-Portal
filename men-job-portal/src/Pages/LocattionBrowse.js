@@ -47,7 +47,7 @@ const LocationBrowse = () => {
                         { name: 'London', jobLocation: 'London' },
                         { name: 'Manchester', jobLocation: 'Manchester' },
                         { name: 'Birmingham', jobLocation: 'Birmingham' },
-                        { name: 'Liver Pool', jobLocation: 'LiverPool' },
+                        { name: 'Liverpool', jobLocation: 'Liverpool' },
                         { name: 'City of Westminster', jobLocation: 'CityofWestminster' },
 
                     ].map(({ name, jobLocation }) => (

@@ -59,7 +59,10 @@ const Categories = () => {
                                     <span className='flex items-center gap-1'><FiDollarSign /> {job?.minPrice}-{job?.maxPrice} {job?.salaryType}</span>
                                     <span className='flex items-center gap-1'><FiCalendar /> {job?.jobPosting}</span>
                                 </div>
-                                <p className='text-base text-primary/70 max-h-24 truncate'>{job?.description}</p>                            </div>
+                                <p className='text-base text-primary/70 max-h-24 truncate'>
+                                    {job?.description.split(' ').slice(0, 30).join(' ')} ....
+                                </p>
+                            </div>
                         </Link>
                     </section>
                 ))}

@@ -1,22 +1,42 @@
 import React, { useState } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import { FaBarsStaggered, FaXmark } from "react-icons/fa6";
+import { IoMdArrowDropdown } from "react-icons/io";
 import Login from "./Login";
 import SignUp from "./Signup";
+import Swal from 'sweetalert2';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [SignupOpen, setSignupOpen] = useState(false);
   const [userName, setUserName] = useState(null);
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+  const navigate = useNavigate();
 
+
+
+  const toggleDropdown = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
+
+  const closeDropdown = () => {
+    setDropdownVisible(false);
+  };
+
+  const handleSelectProfile = () => {
+    closeDropdown();
+  };
+
+  const handleSelectSettings = () => {
+    closeDropdown();
+  };
 
   const handleMenuToggler = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
   const handlePathClick = () => {
-    // Close the menu only if it's open
     if (isMenuOpen) {
       setIsMenuOpen(false);
     }
@@ -31,11 +51,31 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('userName');
-    localStorage.removeItem('userEmail');
-    localStorage.removeItem('userToken');
-    setUserName(null);
+    Swal.fire({
+      title: 'Are you sure you want to log out?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem('userName');
+        localStorage.removeItem('userEmail');
+        localStorage.removeItem('userToken');
+        setUserName(null);
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Logged out successfully!',
+          showConfirmButton: false,
+          timer: 1500
+        });
+
+        navigate('/');
+      }
+    });
   };
+
 
   const navItems = [
     { path: "/", title: "Start a Search" },
@@ -66,19 +106,28 @@ const Navbar = () => {
             </li>
           ))}
         </ul>
-
         {/* Conditional rendering based on user's name */}
-
         <div className="text-base text-primary font-medium space-x-5 hidden lg:block">
           {userName ? (
-            <button className="py-2 px-5 border rounded">{userName}</button>
+            <div className="relative inline-block">
+              <button onClick={toggleDropdown} className="flex items-center py-2 px-5 border rounded">
+                {userName}
+                <IoMdArrowDropdown size={20} />
+              </button>
+              {dropdownVisible && (
+                <div className="absolute bg-white border rounded mt-2 py-2 w-40 z-30">
+                  <Link to="/userprofile" onClick={handleSelectProfile} className="block px-4 py-2 text-gray-800 hover:bg-gray-200">Show Profile</Link>
+                  <Link to="/" onClick={handleSelectSettings} className="block px-4 py-2 text-gray-800 hover:bg-gray-200">Show Settings</Link>
+                </div>
+              )}
+            </div>
           ) : (
             <button onClick={handleLoginModal} className="py-2 px-5 border rounded">Log In</button>
           )}
           {userName ? (
-            <button onClick={handleLogout} className="py-2 px-5 border rounded bg-sky-500 text-white">Logout</button>
+            <button onClick={handleLogout} className="py-2 px-5 border rounded bg-sky-500 text-white hover:bg-white hover:text-gray-900">Logout</button>
           ) : (
-            <button onClick={handleSignupModal} className="py-2 px-5 border rounded bg-sky-500 text-white">Sign Up</button>
+            <button onClick={handleSignupModal} className="py-2 px-5 border rounded bg-sky-500 text-white hover:bg-white hover:text-gray-900">Sign Up</button>
           )}
         </div>
 
@@ -98,20 +147,19 @@ const Navbar = () => {
               <NavLink
                 to={path}
                 className={({ isActive }) => (isActive ? "active" : "")}
-                onClick={handlePathClick} // Close the menu only if it's open
+                onClick={handlePathClick}
               >
                 {title}
               </NavLink>
             </li>
           ))}
-          {/* {!userName && <li className="text-white py-1"><button onClick={handleLoginModal}>Log In</button></li>} */}
           {userName ? (
             <button className="py-2 px-5 border rounded">{userName}</button>
           ) : (
             <button onClick={handleLoginModal} className="py-2 px-5 border rounded">Log In</button>
           )}
           {userName ? (
-            <button onClick={handleLogout} className="py-2 px-5 border rounded bg-sky-500 text-white">Logout</button>
+            <button onClick={handleLogout} className="py-2 px-5 border rounded bg-sky-500 text-white hover:bg-white hover:text-gray-900">Logout</button>
           ) : (
 
             ""
