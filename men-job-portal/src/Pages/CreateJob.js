@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import CreatableSelect from 'react-select/creatable';
 import toast, { Toaster } from "react-hot-toast";
+import Swal from "sweetalert2";
 
 const CreateJob = () => {
   const [selectedOptions, setSelectedOptions] = useState(null);
@@ -24,9 +25,8 @@ const CreateJob = () => {
       || !data.description
       || !data.postedBy
       || !data.category
-    ) 
-      {
-      toast.error("All Fields are required !")
+    ) {
+      toast.error("All Fields are required !");
       return;
     }
     data.skills = selectedOptions;
@@ -37,15 +37,22 @@ const CreateJob = () => {
     })
       .then(res => res.json())
       .then(result => {
+        console.log(result);
         if (result.acknowledge === true) {
-          toast.success("Job add Successfully")
+          Swal.fire({
+            icon: 'success',
+            title: 'Job added successfully!',
+            showConfirmButton: false,
+            timer: 1500
+          });
         }
-        reset()
+        reset();
       })
       .catch(error => {
         console.error(error);
       });
   };
+
 
   const options = [
     { value: "JavaScript", label: "JavaScript" },
